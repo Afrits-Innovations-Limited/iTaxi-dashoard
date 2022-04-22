@@ -8,7 +8,7 @@ export const Index: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/dashboard");
+    router.push("/login");
   }, []);
 
   return <div></div>;
