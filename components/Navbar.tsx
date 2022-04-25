@@ -18,13 +18,13 @@ const Navbar = () => {
                     <Link href="/">
                         <a className="header-brand">
                             <img src="/images/brand/logo.png" className="header-brand-img desktop-logo" alt="logo" />
-                            <img src="/images/brand/logo-1.png" className="header-brand-img mobile-logo" alt="logo" />
+                            <img src="/images/brand/logo.png" className="header-brand-img mobile-logo" alt="logo" />
                         </a>
                     </Link>
                     <Link href="/">
                         <a className="header-brand header-brand1" >
-                            <img src="/images/brand/logo-white.png" className="header-brand-img desktop-logo" alt="logo" />
-                            <img src="/images/brand/logo-1.png" className="header-brand-img mobile-logo" alt="logo" />
+                            <img src="/images/brand/logo.png" className="header-brand-img desktop-logo" alt="logo" />
+                            <img src="/images/brand/logo.png" className="header-brand-img mobile-logo" alt="logo" />
                         </a>
                     </Link>
                 </div>

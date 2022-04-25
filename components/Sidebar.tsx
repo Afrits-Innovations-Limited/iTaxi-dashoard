@@ -46,33 +46,35 @@ const Sidebar = () => {
                     <li className={`slide ${visibleList && 'is-expanded'}`}>
                         <a className="side-menu__item" data-toggle="slide" href="#" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
                         <ul className={`slide-menu`}>
-                            <li><a href="index.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Left Menu</a></li>
-                            <li><a href="index2.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Horizontal Menu</a></li>
+                            <li>
+                                <Link href="/dashboard">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rate Cards</a>
+                                </Link>
+                            </li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Trip Feed</a></li>
                         </ul>
                     </li>
-                    <li><h3>Widgets &and; Maps</h3></li>
+                    <li><h3>Drivers &and; Customers</h3></li>
                     <li>
-                        <a className="side-menu__item" href="widgets.html"><span className="side-menu__label">Widgets</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        <a className="side-menu__item" href="widgets.html"><span className="side-menu__label">Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
                     </li>
                     <li>
-                        <a className="side-menu__item" href="maps.html"><span className="side-menu__label">Maps</span><i className="side-menu__icon fe fe-map-pin"></i></a>
+                        <a className="side-menu__item" href="maps.html"><span className="side-menu__label">Customers</span><i className="side-menu__icon fe fe-map-pin"></i></a>
                     </li>
                     <li><h3>Elements</h3></li>
                     <li className={`slide ${visibleList_2 && 'is-expanded'}`}>
-                        <a className="side-menu__item" href="#" onClick={() => { setVisibleList_2(!visibleList_2) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Components</span><i className="side-menu__icon fe fe-package"></i></a>
+                        <a className="side-menu__item" href="#" onClick={() => { setVisibleList_2(!visibleList_2) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Admin Panel</span><i className="side-menu__icon fe fe-package"></i></a>
                         <ul className={`slide-menu ${toggle ? '' : ''}`}>
-                            <li><a href="cards.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Cards design</a></li>
-                            <li><a href="calendar.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Default calendar</a></li>
-                            <li><a href="calendar2.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Full calendar</a></li>
-                            <li><a href="chat.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Default Chat</a></li>
-                            <li><a href="notify.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Notifications</a></li>
-                            <li><a href="sweetalert.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Sweet alerts</a></li>
-                            <li><a href="rangeslider.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Range slider</a></li>
-                            <li><a href="scroll.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Content Scroll bar</a></li>
-                            <li><a href="loaders.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Loaders</a></li>
-                            <li><a href="counters.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Counters</a></li>
-                            <li><a href="rating.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rating</a></li>
-                            <li><a href="timeline.html" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Timeline</a></li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Drivers</a></li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Customers</a></li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Rate Cards</a></li>
+                            <li>
+                                <Link href="/rent-a-car">
+                                    <a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rent a Car</a>
+                                </Link>
+                            </li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Terms &and; Conditions</a></li>
+                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Privacy Policy</a></li>
                         </ul>
                     </li>
                 </ul>
