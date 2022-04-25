@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDropzone } from 'react-dropzone';
+
 
 const Image = ({selectedImage, setSelectedImage}) => {
     // const [selectedImage, setSelectedImage] = useState();

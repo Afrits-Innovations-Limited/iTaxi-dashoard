@@ -7,7 +7,10 @@ import '../styles/css/color1.css'
 import '../styles/css/icons.css'
 import '../styles/css/main.css'
 import '../styles/css/select2.min.css'
-
+import '../styles/css/multiple-select.css'
+import '../styles/css/jquery.timepicker.css'
+import '../styles/css/spectrum.css'
+import "react-datetime/css/react-datetime.css";
 import type { AppProps } from 'next/app'
 import AppContext from '../context/AppContext'
 import { useState } from 'react'

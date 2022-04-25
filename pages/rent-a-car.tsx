@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import DashboardLayout from '../layouts/Dashboard'
 import CurrencyInput from 'react-currency-input-field';
 import Image from '../components/Image'
+import Year from "../components/YearPicker"
+import TimeSelect from "../components/TimePicker"
+import DayPicker from "../components/DayPicker"
+
 
 const CarRent = () => {
-    const [name, setName] = useState("")
     const [image, setImage] = useState(null)
-
 
     const [carDetails, setCarDetails] = useState({
         name: "",
@@ -31,9 +33,6 @@ const CarRent = () => {
 
     })
 
-
-
-
     return (
         <DashboardLayout title={"iTaxi - Rent A Car"} description={"car for hire"}>
             <div className="app-content">
@@ -52,7 +51,9 @@ const CarRent = () => {
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">Name</label>
-                                                <input type="text" className="form-control" name="name" placeholder="Name" />
+                                                <input type="text" className="form-control" name="name" placeholder="Name" value={carDetails.name} onChange={(e) => {
+                                                    setCarDetails({ ...carDetails, name: e.target.value })
+                                                }} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Car Make</label>
@@ -60,11 +61,11 @@ const CarRent = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Model</label>
-                                                <input type="text" className="form-control" name="model" placeholder="Car Model" />
+                                                <input type="text" className="form-control" name="model" placeholder="Car Model" value={carDetails.model} onChange={(e) => setCarDetails({ ...carDetails, model: e.target.value })} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Year</label>
-                                                <input type="text" className="form-control" name="year" placeholder="Car Year" maxLength={4} />
+                                                <Year />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Interior</label>
@@ -128,23 +129,27 @@ const CarRent = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Open Day</label>
-                                                <input type="text" className="form-control" name="open_day" placeholder="Open Day" />
+                                                <DayPicker name={"open_day"} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Close Day</label>
-                                                <input type="text" className="form-control" name="close_day" placeholder="Close Day" />
+                                                <DayPicker name={"close_day"} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Open Time</label>
-                                                <input type="text" className="form-control" name="open_time" placeholder="Open Time" />
+                                                <TimeSelect name={"open_time"} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Close Time</label>
-                                                <input type="text" className="form-control" name="close_time" placeholder="Close Time" />
+                                                <TimeSelect name={"close_time"} />
                                             </div>
                                             <div className="form-group">
                                                 <label className="form-label">Availability</label>
-                                                <input type="text" className="form-control" name="availabilty" placeholder="Availability" />
+                                                <select name="availability" id="" className='form-control select2 col-4'>
+                                                    <option value="Yes">YES</option>
+                                                    <option value="No">NO</option>
+                                                </select>
+
                                             </div>
                                         </div>
 
