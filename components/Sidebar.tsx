@@ -44,7 +44,10 @@ const Sidebar = () => {
                 <ul className={`side-menu`} onMouseEnter={menuHover} onMouseLeave={menuHover} onClick={() => setOpenSideMenu(!openSideMenu)}>
                     <li><h3>ITAXI</h3></li>
                     <li className={`slide ${visibleList && 'is-expanded'}`}>
-                        <a className="side-menu__item" data-toggle="slide" href="#" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
+                        <Link href="/dashboard">
+                            <a className="side-menu__item" data-toggle="slide" href="" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
+                        </Link>
+
                         <ul className={`slide-menu`}>
                             <li>
                                 <Link href="/dashboard">

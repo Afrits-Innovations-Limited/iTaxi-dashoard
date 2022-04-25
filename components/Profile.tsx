@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import AppContext from '../context/AppContext'
+import { user } from "../data/mockdata"
 
 const Profile = () => {
 
@@ -17,18 +18,16 @@ const Profile = () => {
                     <div className="header-user text-center mt-4 pb-4">
                         <span className="avatar avatar-xxl brround">
                             <img src="/images/users/15.jpg" alt="Profile-img" className="avatar avatar-xxl brround" /></span>
-                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">Devid Antoni</div>
-                        <small>Administrator</small>
+                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{user.name}</div>
+                        <small>{user.role}</small>
                         <div className="card-body">
 
                         </div>
                     </div>
                     <a className="dropdown-item  border-top" href="#">
-                        <i className="dropdown-icon mdi mdi-account-outline "></i> Spruko technologies
+                        <i className="dropdown-icon mdi mdi-account-outline "></i> {user.year}
                     </a>
-                    <a className="dropdown-item border-top" href="#">
-                        <i className="dropdown-icon  mdi mdi-account-plus"></i> Add another Account
-                    </a>
+
                     <div className="card-body border-top">
                         <div className="row">
                             <div className="col-4 text-center">

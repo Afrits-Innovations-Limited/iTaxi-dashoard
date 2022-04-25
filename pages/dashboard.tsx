@@ -3,6 +3,7 @@ import DashboardLayout from "../layouts/Dashboard";
 import { user } from "../data/mockdata"
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
+import Link from "next/link";
 
 const Dashboard: NextPage = () => {
 
@@ -46,7 +47,7 @@ const Dashboard: NextPage = () => {
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
-                                                <h2 className="mt-2 number-font mb-0 float-md-right">37,258</h2>
+                                                <h2 className="mt-2 number-font mb-0 float-md-right">{user.revenue}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +73,7 @@ const Dashboard: NextPage = () => {
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
-                                                <h2 className="mt-2 number-font mb-0 float-md-right">78,765</h2>
+                                                <h2 className="mt-2 number-font mb-0 float-md-right">{user.cost}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +99,7 @@ const Dashboard: NextPage = () => {
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
-                                                <h2 className="mt-2 number-font mb-0 float-md-right">45,854</h2>
+                                                <h2 className="mt-2 number-font mb-0 float-md-right">{user.revenue} </h2>
                                             </div>
                                         </div>
                                     </div>
@@ -121,21 +122,15 @@ const Dashboard: NextPage = () => {
                                         <div className="latest-timeline">
                                             <h5>2019</h5>
                                             <ul className="timeline mb-0">
-                                                <li className="mt-0">
-                                                    <a target="_blank" href="#" className="font-weight-semibold text-dark fs-16">New Project approved</a>
-                                                    <div><small className="fs-13 text-muted">23 Sep, 2019</small></div>
-                                                    <p className="text-muted mt-2">Lorem ipsum dolor tempor incididunt ut labore et dolore magna aliqua. </p>
-                                                </li>
-                                                <li>
-                                                    <a target="_blank" href="#" className="font-weight-semibold text-dark fs-16">Need Some Updates in Project</a>
-                                                    <div><small className="fs-13 text-muted">16 Aug, 2019</small></div>
-                                                    <p className="text-muted mt-2">Lorem ipsum dolor tempor incididunt ut labore et dolore.</p>
-                                                </li>
-                                                <li>
-                                                    <a target="_blank" href="#" className="font-weight-semibold text-dark fs-16">Completed total projects</a>
-                                                    <div><small className="fs-13 text-muted">23 Feb, 2019</small></div>
-                                                    <p className="text-muted mt-2 mb-0">Lorem ipsum dolor tempor incididunt ut labore et dolore.</p>
-                                                </li>
+                                                {user.task.map((project) => (
+                                                    <li className="mt-0">
+                                                        <a href="#" className="font-weight-semibold text-dark fs-16" target="_blank" rel="noopener noreferrer" >
+                                                            {project.title}
+                                                        </a>
+                                                        <div><small className="fs-13 text-muted">{project.time} </small></div>
+                                                        <p className="text-muted mt-2">{project.desc} </p>
+                                                    </li>
+                                                ))}
                                             </ul>
                                         </div>
                                     </div>
@@ -224,56 +219,22 @@ const Dashboard: NextPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>2345</td>
-                                                    <td className="text-sm font-weight-600">Megan Peters</td>
-                                                    <td>Season Claeys</td>
-                                                    <td className="text-nowrap">Jan 13, 2019</td>
-                                                    <td className="text-nowrap">Mar 24, 2020</td>
-                                                    <td>please check pricing Info </td>
-                                                    <td className="text-success">Completed</td>
-                                                    <td className="text-nowrap"><a className="btn btn-outline-primary" href="#">View Project</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4562</td>
-                                                    <td className="text-sm font-weight-600">Phil Vance</td>
-                                                    <td>Meagan Moone</td>
-                                                    <td className="text-nowrap">Jan 15, 2019</td>
-                                                    <td className="text-nowrap">Apr 25, 2020</td>
-                                                    <td>New stock</td>
-                                                    <td className="text-orange">Pending</td>
-                                                    <td className="text-nowrap"><a className="btn btn-outline-primary" href="#">View Project</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8765</td>
-                                                    <td className="text-sm font-weight-600">Adam Sharp</td>
-                                                    <td>Freeda Harig</td>
-                                                    <td className="text-nowrap">Jan 8, 2019</td>
-                                                    <td className="text-nowrap">Nox 18, 2019</td>
-                                                    <td>Daily updates</td>
-                                                    <td className="text-yellow">Ongoing Process</td>
-                                                    <td className="text-nowrap"><a className="btn btn-outline-primary" href="#">View Project</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2665</td>
-                                                    <td className="text-sm font-weight-600">Samantha Slater</td>
-                                                    <td>Lena Pompa</td>
-                                                    <td className="text-nowrap">Jan 28, 2019</td>
-                                                    <td className="text-nowrap">Feb 28, 2020</td>
-                                                    <td>available item list</td>
-                                                    <td className="text-success">Completed</td>
-                                                    <td className="text-nowrap"><a className="btn btn-outline-primary" href="#">View Project</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1245</td>
-                                                    <td className="text-sm font-weight-600">Joanne Nash</td>
-                                                    <td>Whitney Cadle</td>
-                                                    <td className="text-nowrap">Jan 2, 2019</td>
-                                                    <td className="text-nowrap">Dec 12, 2019</td>
-                                                    <td>Provide Best Services</td>
-                                                    <td className="text-orange">Pending</td>
-                                                    <td className="text-nowrap"><a className="btn btn-outline-primary" href="#">View Project</a></td>
-                                                </tr>
+                                                {user.projectStatus.map((project) => (
+                                                    <tr>
+                                                        <td>{project.id} </td>
+                                                        <td className="text-sm font-weight-600">{project.projectName}</td>
+                                                        <td>{project.teamLead}</td>
+                                                        <td className="text-nowrap">{project.date}</td>
+                                                        <td className="text-nowrap">{project.date}</td>
+                                                        <td>{project.feedback}</td>
+                                                        <td className={` ${project.status === "Completed" ? "text-success" : ""}  ${project.status === 'Pending' ? "text-orange" : "text-yellow"}`}>{project.status}</td>
+                                                        <td className="text-nowrap">
+                                                            <Link href={project.previewLink}>
+                                                                <a className="btn btn-outline-primary">View Project</a>
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                ))}
                                             </tbody>
                                         </table>
                                     </div>
@@ -286,84 +247,26 @@ const Dashboard: NextPage = () => {
                                     </div>
                                     <div className="card-body p-0">
                                         <div className="list-group list-group-flush ">
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/1.jpg" alt="avatar" />
+                                            {user.customers.map((customer) => (
+                                                <div className="list-group-item d-flex  align-items-center">
+                                                    <div className="mr-2">
+                                                        <img className="mr-3 rounded-circle" width="40" src={customer.image} alt="avatar" />
+                                                    </div>
+                                                    <div className="">
+                                                        <div className=" h6 mb-0 text-dark">{customer.name}</div>
+                                                        <small className="text-muted">{customer.designation}
+                                                        </small>
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <a href="#" className="btn btn-sm btn-primary">Follow</a>
+                                                    </div>
                                                 </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Mozelle Belt</div>
-                                                    <small className="text-muted">Web Designer
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-primary">Follow</a>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/4.jpg" alt="avatar" />
-                                                </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Florinda Carasco</div>
-                                                    <small className="text-muted">Project Manager
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-secondary">Follow</a>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/12.jpg" alt="avatar" />
-                                                </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Alina Bernier</div>
-                                                    <small className="text-muted">Administrator
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-danger">Follow</a>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/15.jpg" alt="avatar" />
-                                                </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Zula Mclaughin</div>
-                                                    <small className="text-muted">Web Developer
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-primary">Follow</a>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/2.jpg" alt="avatar" />
-                                                </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Isidro Heide</div>
-                                                    <small className="text-muted">Web Designer
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-secondary">Follow</a>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item d-flex  align-items-center">
-                                                <div className="mr-2">
-                                                    <img className="mr-3 rounded-circle" width="40" src="/images/users/4.jpg" alt="avatar" />
-                                                </div>
-                                                <div className="">
-                                                    <div className=" h6 mb-0 text-dark">Florinda Carasco</div>
-                                                    <small className="text-muted">Project Manager
-                                                    </small>
-                                                </div>
-                                                <div className="ml-auto">
-                                                    <a href="#" className="btn btn-sm btn-danger">Follow</a>
-                                                </div>
-                                            </div>
+                                            ))}
+
+
+
+
+
                                         </div>
                                     </div>
                                 </div>
