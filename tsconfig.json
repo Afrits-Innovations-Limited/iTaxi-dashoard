@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/Image.jsx"
+    "components/Image.tsx"
   ],
   "exclude": [
     "node_modules"

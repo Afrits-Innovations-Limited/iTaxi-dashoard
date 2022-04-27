@@ -7,7 +7,8 @@ import Link from "next/link";
 
 const Dashboard: NextPage = () => {
 
-    const { toggle } = useContext(AppContext)
+    const { toggle, admin } = useContext(AppContext)
+
     return (
         <div className={`app sidebar-mini Left-menu-Default  Sidemenu-left-icons ${toggle && "sidenav-toggled "}`} >
             <DashboardLayout title={"iTaxi"} description={"Home page"}>
@@ -25,7 +26,7 @@ const Dashboard: NextPage = () => {
                                     <img src="https://www.spruko.com/demo/flaira/Flaira/assets/images/svgs/email.svg" alt="image" className="image" />
                                 </div>
                                 <div className="page-content col-xl-7 col-lg-6 col-md-12">
-                                    <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{user.name}</span></h3>
+                                    <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{admin.lastname}</span></h3>
                                 </div>
                             </div>
                         </div>

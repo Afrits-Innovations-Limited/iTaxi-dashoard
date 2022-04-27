@@ -2,10 +2,12 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import AppContext from '../context/AppContext'
 import { user } from "../data/mockdata"
+import ReactTimeAgo from 'react-time-ago'
 
 const Profile = () => {
 
-    const { profileToggle, setProfileToggle } = useContext(AppContext)
+    const { profileToggle, setProfileToggle, admin } = useContext(AppContext)
+    const date = new Date(admin.created_at).getFullYear()
 
     return (
         <div>
@@ -18,25 +20,34 @@ const Profile = () => {
                     <div className="header-user text-center mt-4 pb-4">
                         <span className="avatar avatar-xxl brround">
                             <img src="/images/users/15.jpg" alt="Profile-img" className="avatar avatar-xxl brround" /></span>
-                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{user.name}</div>
-                        <small>{user.role}</small>
+                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{admin.lastname}</div>
+                        <small>{admin.email}</small>
+                        <small>{admin.phone}</small>
+                        <small>Admin</small>
                         <div className="card-body">
 
                         </div>
                     </div>
                     <a className="dropdown-item  border-top" href="#">
-                        <i className="dropdown-icon mdi mdi-account-outline "></i> {user.year}
+                        <i className="dropdown-icon mdi mdi-account-outline "></i>
+                        {date}
                     </a>
 
                     <div className="card-body border-top">
                         <div className="row">
                             <div className="col-4 text-center">
-                                <a className="" href="#"><i className="dropdown-icon mdi  mdi-message-outline fs-30 m-0 leading-tight"></i></a>
-                                <div>Inbox</div>
+                                <Link href={""}>
+                                    <a className="" href="#"><i className="dropdown-icon mdi  mdi-message-outline fs-30 m-0 leading-tight"></i><div>Inbox</div></a>
+                                </Link>
                             </div>
                             <div className="col-4 text-center">
-                                <a className="" href="#"><i className="dropdown-icon mdi mdi-tune fs-30 m-0 leading-tight"></i></a>
-                                <div>Settings</div>
+                                <Link href="/profile-setup">
+                                    <a className="" href="#"><i className="dropdown-icon mdi mdi-tune fs-30 m-0 leading-tight"></i>
+                                        <div>Settings</div>
+                                    </a>
+
+                                </Link>
+
                             </div>
                             <div className="col-4 text-center">
                                 <Link href="/login">

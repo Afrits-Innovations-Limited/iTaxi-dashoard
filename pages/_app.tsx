@@ -19,6 +19,8 @@ import Head from 'next/head'
 function MyApp({ Component, pageProps }: AppProps) {
   const [toggle, setToggle] = useState(false)
   const [profileToggle, setProfileToggle] = useState(false)
+  const [auth, setAuth] = useState("")
+  const [admin, setAdmin] = useState({})
   return (
     <>
       <Head>
@@ -33,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle }}>
+      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin }}>
         <Component {...pageProps} />
       </AppContext.Provider>
     </>

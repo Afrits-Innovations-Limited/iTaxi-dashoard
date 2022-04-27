@@ -21,3 +21,43 @@ a {
 .user-image{
   object-fit: cover;
 }
+
+.alertContainer{
+  width: 600px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.alertProp{
+  transition: all 2s ease-in-out;
+}
+.centered-logo{
+width: 50%;
+position: absolute;
+width: 50%;
+left: 50%;
+right: 50%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.currency-input{
+ position: relative;
+}
+
+.currency-input .prefix-currency{
+ position: absolute;
+ font-size: 14px;
+ top: 9px;
+ left: 4px;
+}
+
+.currency-input .currency-control{
+padding: 0 20px;
+}

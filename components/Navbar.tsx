@@ -189,7 +189,7 @@ const Navbar = () => {
                             <img src="/images/brand/logo.png" className="header-brand-img desktop-logo" alt="logo" />
                         </a>
                         <a className="header-brand header-brand1" href="index.html">
-                            <img src="/images/brand/logo-white.png" className="header-brand-img desktop-logo" alt="logo" />
+                            <img src="/images/brand/logo.png" className="header-brand-img desktop-logo" alt="logo" />
                         </a>
                         <div className="d-flex order-lg-2 ml-auto header-right-icons">
                             <button className="navbar-toggler navresponsive-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
