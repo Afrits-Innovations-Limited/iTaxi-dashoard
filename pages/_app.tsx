@@ -15,12 +15,20 @@ import type { AppProps } from 'next/app'
 import AppContext from '../context/AppContext'
 import { useState } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import ProtectedRoutes from '../context/ProtectedRoutes'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [toggle, setToggle] = useState(false)
   const [profileToggle, setProfileToggle] = useState(false)
-  const [auth, setAuth] = useState("")
+  const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
+  const [token, setToken] = useState("")
+
+
+  const router = useRouter()
+  const requireNoAuth = ['/', '/login', '/signup', '/forgot-password']
+
   return (
     <>
       <Head>
@@ -29,14 +37,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <title>iTaxi</title>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/hk-grotesk.min.css"
-        />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin }}>
-        <Component {...pageProps} />
+      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken }}>
+        {requireNoAuth.includes(router.pathname) ? (
+          <Component {...pageProps} />
+        ) : (
+          <ProtectedRoutes>
+            <Component {...pageProps} />;
+          </ProtectedRoutes>
+        )}
       </AppContext.Provider>
     </>
 

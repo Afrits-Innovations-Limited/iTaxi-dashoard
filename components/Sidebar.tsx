@@ -9,7 +9,7 @@ import { user } from '../data/mockdata'
 const Sidebar = () => {
 
     const router = useRouter();
-    const { toggle, setToggle } = useContext(AppContext)
+    const { toggle, setToggle, admin } = useContext(AppContext)
     const [openSideMenu, setOpenSideMenu] = useState(true)
     const [visibleList, setVisibleList] = useState(false)
     const [visibleList_2, setVisibleList_2] = useState(false)
@@ -34,8 +34,8 @@ const Sidebar = () => {
                                     </span>
                                 </div>
                                 <div className="user-info">
-                                    <h5 className=" mb-1 font-weight-bold text-dark">{user.name}</h5>
-                                    <span className="text-muted app-sidebar__user-name text-sm">{user.role}</span>
+                                    <h5 className=" mb-1 font-weight-bold text-dark">{admin.lastname} {admin.firstname}</h5>
+                                    <span className="text-muted app-sidebar__user-name text-sm">{admin.account_type}</span>
                                 </div>
                             </a>
                         </div>
@@ -50,34 +50,64 @@ const Sidebar = () => {
 
                         <ul className={`slide-menu`}>
                             <li>
-                                <Link href="/dashboard">
+                                <Link href="/admin/rate-cards">
                                     <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rate Cards</a>
                                 </Link>
                             </li>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Trip Feed</a></li>
+                            <li>
+                                <Link href={"/trip-feed"}>
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Trip Feed</a>
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li><h3>Drivers &and; Customers</h3></li>
                     <li>
-                        <a className="side-menu__item" href="widgets.html"><span className="side-menu__label">Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        <Link href="/admin/drivers">
+                            <a className="side-menu__item" ><span className="side-menu__label">Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
+
+                        </Link>
+
                     </li>
                     <li>
-                        <a className="side-menu__item" href="maps.html"><span className="side-menu__label">Customers</span><i className="side-menu__icon fe fe-map-pin"></i></a>
+                        <Link href="admin/customers">
+                            <a className="side-menu__item" ><span className="side-menu__label">Customers</span><i className="side-menu__icon fe fe-map-pin"></i></a>
+                        </Link>
                     </li>
                     <li><h3>Elements</h3></li>
                     <li className={`slide ${visibleList_2 && 'is-expanded'}`}>
-                        <a className="side-menu__item" href="#" onClick={() => { setVisibleList_2(!visibleList_2) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Admin Panel</span><i className="side-menu__icon fe fe-package"></i></a>
+                        <Link href="/dashboard">
+                            <a className="side-menu__item" onClick={() => { setVisibleList_2(!visibleList_2) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Admin Panel</span><i className="side-menu__icon fe fe-package"></i></a>
+                        </Link>
                         <ul className={`slide-menu ${toggle ? '' : ''}`}>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Drivers</a></li>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Customers</a></li>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Rate Cards</a></li>
                             <li>
-                                <Link href="/rent-a-car">
-                                    <a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rent a Car</a>
+                                <Link href="/admin/drivers">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Drivers</a></Link></li>
+
+                            <li>
+                                <Link href="/admin/customers">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Customers</a>
+                                </Link></li>
+                            <li>
+                                <Link href="/admin/rate-cards">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Rate Cards</a>
                                 </Link>
                             </li>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Terms &and; Conditions</a></li>
-                            <li><a href="" className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Privacy Policy</a></li>
+                            <li>
+                                <Link href="/rent-a-car">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rent a Car</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/terms-&amp;-conditions">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Terms &amp; Conditions</a>
+                                </Link>
+                            </li>
+                            <li>
+
+                                <Link href="/privacy-policy">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Privacy Policy</a>
+                                </Link></li>
                         </ul>
                     </li>
                 </ul>

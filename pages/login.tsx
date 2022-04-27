@@ -5,7 +5,7 @@ import ReactTimeAgo from "react-time-ago";
 import { ErrorAlert, InfoAlert, SuccessAlert } from "../components/Alert";
 import PageHead from "../components/Head";
 import AppContext from "../context/AppContext";
-import Axios from "../context/Axios";
+import Axios, { config } from "../context/Axios";
 
 const Login: NextPage = () => {
 
@@ -20,10 +20,12 @@ const Login: NextPage = () => {
     const [success, setSuccess] = useState(false)
     const [info, setInfo] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
+
     const VerifyAPI = "/v1/rider/login/phone/verify"
     const LoginAPI = "/v1/rider/login/phone"
 
-    const { setAdmin, setAuth } = useContext(AppContext)
+
+    const { setAdmin, setAuth, setToken } = useContext(AppContext)
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,21 +47,15 @@ const Login: NextPage = () => {
             account_type: account
         }
 
-
         try {
-            const response = await Axios.post(LoginAPI, JSON.stringify(data), {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
+            const response = await Axios.post(LoginAPI, data, config);
+            console.log(response);
+
             if (response.data.status === true) {
                 setVerifyForm(true)
                 setLoginForm(false)
                 setInfo(true)
                 setAlertMessage(response.data.message)
-
             } else {
                 console.log(response.data.message);
                 setError(true)
@@ -83,19 +79,15 @@ const Login: NextPage = () => {
             otp: otp
         }
         try {
-            const response = await Axios.post(VerifyAPI, JSON.stringify(data), {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
+            const response = await Axios.post(VerifyAPI, data, config);
             if (response.data.status === true) {
                 if (response.data.data.token === null) {
-
+                    setAuth(true)
                     router.push('/profile-setup')
                 } else {
-                    setAuth(response.data.data.token)
+                    setAuth(true)
+                    setToken(response.data.data.token)
+                    console.log(response.data.data.user);
                     setAdmin(response.data.data.user)
                     router.push('/dashboard')
                 }

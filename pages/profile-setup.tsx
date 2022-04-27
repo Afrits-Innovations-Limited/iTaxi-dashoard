@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import Router from 'next/router'
+import React, { useContext, useEffect, useState } from 'react'
 import { ErrorAlert, SuccessAlert } from '../components/Alert'
 import PageHead from '../components/Head'
-import Axios from '../context/Axios'
+import AppContext from '../context/AppContext'
+import Axios, { config } from '../context/Axios'
 
 const ProfileSetup = () => {
 
@@ -13,40 +15,38 @@ const ProfileSetup = () => {
     const [alert, setAlert] = useState(false)
     const [error, setError] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
-
+    const { setAdmin, setToken } = useContext(AppContext)
     const setProfileAPI = "/v1/rider/login/phone/setup"
 
     useEffect(() => {
         setTimeout(() => {
             if (alert) {
                 setAlert(false);
+            } else if (error) {
+                setError(false)
             }
         }, 3000);
-    }, [alert]);
+    }, [alert, error]);
 
     const handleSetup = async () => {
 
-        const userData = {
+        const data = {
             phone,
             email,
             lastname,
             firstname,
             account_type: account
         }
-        console.log(userData)
-
 
         try {
-            const response = await Axios.post(setProfileAPI, JSON.stringify(userData), {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
+            const response = await Axios.post(setProfileAPI, data, config);
             if (response.data.status === true) {
                 setAlert(true)
                 setAlertMessage(response.data.message)
+                console.log(response.data)
+                Router.push("/dashboard")
+                setToken(response.data.data.token)
+                setAdmin(response.data.data.user)
 
             } else {
                 console.log(response.data.message);
@@ -100,8 +100,8 @@ const ProfileSetup = () => {
                                                 <input type="email" className="form-control" placeholder="Email address" value={email} onChange={(e: any) => setEmail(e.target.value)} required />
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="exampleInputnumber">Conatct Number</label>
-                                                <input type="number" name="phone" className="form-control" placeholder="Phone number" value={phone} onChange={(e: any) => setPhone(e.target.value)} required />
+                                                <label htmlFor="exampleInputnumber">Contact Number</label>
+                                                <input type="text" name="phone" className="form-control" placeholder="Phone number" value={phone} onChange={(e: any) => setPhone(e.target.value)} required />
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="exampleInputnumber">Account Type</label>
