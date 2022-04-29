@@ -11,6 +11,9 @@ import '../styles/css/multiple-select.css'
 import '../styles/css/jquery.timepicker.css'
 import '../styles/css/spectrum.css'
 import "react-datetime/css/react-datetime.css";
+import "swiper/css/bundle";
+import "swiper/css";
+import "swiper/css/pagination";
 import type { AppProps } from 'next/app'
 import AppContext from '../context/AppContext'
 import { useState } from 'react'
@@ -23,6 +26,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [profileToggle, setProfileToggle] = useState(false)
   const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
+  const [cars, setCars] = useState({})
+  const [availableCars, setAvailableCars] = useState({})
   const [token, setToken] = useState("")
 
 
@@ -39,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>iTaxi</title>
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken }}>
+      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken, cars, setCars, availableCars, setAvailableCars }}>
         {requireNoAuth.includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (

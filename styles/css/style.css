@@ -5506,8 +5506,8 @@ select.form-control-lg:not([size]):not([multiple]) {
     text-align: center;
     transition: all .5s ease 0s;
     padding: 15px 0 0 0; }
-  .product-grid6:hover .product-content {
-    opacity: 0; }
+  /* .product-grid6:hover .product-content {
+    opacity: 0; } */
   .product-grid6 .title {
     font-size: 16px;
     font-weight: 500;

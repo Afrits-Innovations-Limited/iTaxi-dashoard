@@ -10,8 +10,8 @@ import AppContext from '../context/AppContext';
 import Axios from '../context/Axios';
 
 
-const CarRent = () => {
-    const [token] = useContext(AppContext)
+const UpdateCars = () => {
+    const { token } = useContext(AppContext)
     const [image, setImage] = useState(null)
     const [year, setYear] = useState("")
     const [open_day, setOpenDay] = useState("")
@@ -31,6 +31,7 @@ const CarRent = () => {
     const [availability, setAvailabilty] = useState("")
     const [address, setAddress] = useState("")
 
+
     const [error, setError] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
@@ -44,7 +45,7 @@ const CarRent = () => {
         }
     }
 
-    const rentACarAPI = "/v1/admin/cars/make/create"
+    const ApiLink = "/v1/admin/cars/rent/update/13"
 
     useEffect(() => {
         setTimeout(() => {
@@ -80,7 +81,7 @@ const CarRent = () => {
         }
 
         try {
-            const response = await Axios.post(rentACarAPI, data, config);
+            const response = await Axios.post(ApiLink, data, config);
             if (response.data.status === true) {
                 setAlert(true)
                 setAlertMessage(response.data.message)
@@ -99,6 +100,7 @@ const CarRent = () => {
             setAlertMessage(err.message)
         }
     }
+
 
 
     return (
@@ -225,4 +227,4 @@ const CarRent = () => {
     )
 }
 
-export default CarRent
+export default UpdateCars

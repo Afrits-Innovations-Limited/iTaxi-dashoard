@@ -44,14 +44,11 @@ const Sidebar = () => {
                 <ul className={`side-menu`} onMouseEnter={menuHover} onMouseLeave={menuHover} onClick={() => setOpenSideMenu(!openSideMenu)}>
                     <li><h3>ITAXI</h3></li>
                     <li className={`slide ${visibleList && 'is-expanded'}`}>
-                        <Link href="/dashboard">
-                            <a className="side-menu__item" data-toggle="slide" href="" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
-                        </Link>
-
+                        <a className="side-menu__item" data-toggle="slide" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
                         <ul className={`slide-menu`}>
                             <li>
-                                <Link href="/admin/rate-cards">
-                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Rate Cards</a>
+                                <Link href="/cars">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Cars</a>
                                 </Link>
                             </li>
                             <li>
@@ -61,7 +58,7 @@ const Sidebar = () => {
                             </li>
                         </ul>
                     </li>
-                    <li><h3>Drivers &and; Customers</h3></li>
+                    <li><h3>Drivers &amp; Customers</h3></li>
                     <li>
                         <Link href="/admin/drivers">
                             <a className="side-menu__item" ><span className="side-menu__label">Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
@@ -91,6 +88,11 @@ const Sidebar = () => {
                             <li>
                                 <Link href="/admin/rate-cards">
                                     <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Manage Rate Cards</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/admin/create-cars">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Add a Car</a>
                                 </Link>
                             </li>
                             <li>

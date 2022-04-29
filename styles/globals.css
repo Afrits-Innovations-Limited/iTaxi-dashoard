@@ -69,3 +69,7 @@ padding: 0 20px;
   align-items: center;
   margin-top: 5rem;
 }
+.rating-icons{
+  width: 100px;
+  /* margin-left: -10px; */
+}

@@ -18,7 +18,11 @@ const DashboardLayout = (props: {
             <div className="page">
                 <div className="page-main">
                     <Sidebar />
-                    <div className="">{props.children}</div>
+                    <div className="app-content">
+                        <div className="side-app">
+                            <div className="">{props.children}</div>
+                        </div>
+                    </div>
                     <Profile />
                 </div>
             </div>
