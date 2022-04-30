@@ -8,10 +8,9 @@ const Image = ({selectedImage, setSelectedImage}) => {
         <div>
             <input
                 type="file"
-                name="myImage"
+                name="picture"
                 className='form-control'
                 onChange={(event) => {
-                    console.log(event.target.files[0]);
                     setSelectedImage(event.target.files[0]);
                 }}
             />

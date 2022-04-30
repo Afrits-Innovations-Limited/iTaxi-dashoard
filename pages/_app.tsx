@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
   const [cars, setCars] = useState({})
-  const [availableCars, setAvailableCars] = useState({})
+  const [availableCars, setAvailableCars] = useState([])
   const [token, setToken] = useState("")
 
 

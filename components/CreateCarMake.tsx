@@ -1,5 +1,6 @@
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Image from "../components/Image"
 import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
@@ -20,6 +21,16 @@ const CreateCarMake = () => {
     const [alertMessage, setAlertMessage] = useState("")
     const [error, setError] = useState(false)
     const AuthUser = "Bearer " + token;
+    // const config = {
+    //     headers: {
+    //         'Content-Type': 'multipart/form-data;',
+    //         'Access-Control-Allow-Origin': "*",
+    //         'Accept': "application/json",
+
+    //         "mimeType": "multipart/form-data",
+    //     }
+    // }
+
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -30,7 +41,7 @@ const CreateCarMake = () => {
     }
 
     const createCarMakeAPI = "/v1/admin/cars/make/create"
-
+    const formRef = useRef()
     useEffect(() => {
         setTimeout(() => {
             if (alert) {
@@ -43,15 +54,20 @@ const CreateCarMake = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        const data = {
-            name,
-            picture,
-            description
+
+        // console.log(picture)
+        const formData = {
+            name: name,
+            picture: picture,
+            description: description
         }
-        console.log(data)
+
+
+        console.log(formData)
+
 
         try {
-            const response = await Axios.post(createCarMakeAPI, data, config);
+            const response = await Axios.post(createCarMakeAPI, formData, config);
             if (response.data.status === true) {
                 setAlert(true)
                 setAlertMessage(response.data.message)
@@ -84,7 +100,7 @@ const CreateCarMake = () => {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-12">
-                            <form className='login100-form' onSubmit={handleSubmit}>
+                            <form className='login100-form' onSubmit={handleSubmit} ref={formRef}>
                                 <div className="form-group">
                                     <label className="form-label">Enter Car Name</label>
                                     <input type="text" className="form-control" name="name" placeholder="Name" value={name} onChange={(e: any) => setName(e.target.value)} />

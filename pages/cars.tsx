@@ -6,7 +6,7 @@ import Ratings from '../components/Ratings';
 
 
 const Cars = () => {
-    const getCarsAPI = "/v1/admin/cars/rent/1"
+    const getCarsAPI = "/v1/admin/cars/rent"
     const { token, availableCars, setAvailableCars } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const config = {
@@ -33,28 +33,29 @@ const Cars = () => {
             <div className="row row-cards">
                 <div className="col-xl-9 col-lg-8">
                     <div className="row">
-                        {/* Card Starts Here */}
-                        <div className="col-md-6 col-xl-4">
-                            <div className="card item-card">
-                                <div className="product-grid6  card-body">
-                                    <div className="product-image6">
-                                        <a href="#">
-                                            <img className="img-fluid" src={availableCars.pictureUrl} alt={availableCars.picture} />
-                                        </a>
-                                    </div>
-                                    <div className="product-content text-center">
-                                        <h4 className="title"><a href="#">{availableCars.name}</a></h4>
-                                        <h6 className='title'>Price: N{availableCars.price} </h6>
-                                        <p className='title'>Location: {availableCars.address} </p>
-                                        <p className='title'>Contact: {availableCars.phone} </p>
-                                        <span>Available From: {availableCars.open_day} at {availableCars.open_time} to {availableCars.close_day} at {availableCars.close_time} </span>
+                        {availableCars.map((car) => (
+                            <div className="col-md-6 col-xl-4">
+                                <div className="card item-card">
+                                    <div className="product-grid6  card-body">
+                                        <div className="product-image6">
+                                            <a href="#">
+                                                <img className="img-fluid" src={car.pictureUrl} alt={car.picture} />
+                                            </a>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h4 className="title"><a href="#">{car.name}</a></h4>
+                                            <h6 className='title'>Price: N{car.price} </h6>
+                                            <p className='title'>Location: {car.address} </p>
+                                            <p className='title'>Contact: {car.phone} </p>
+                                            <span>Available From: {car.open_day} at {car.open_time} to {car.close_day} at {car.close_time} </span>
 
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {/* Ends Here */}
+                        ))}
+
 
                     </div>
 
