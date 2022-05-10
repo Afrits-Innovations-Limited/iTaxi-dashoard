@@ -129,8 +129,8 @@ const Navbar = () => {
                     {/* Profile */}
                     <div className="dropdown profile-1">
                         <a href="#" data-toggle="dropdown" className="nav-link pr-2 leading-none d-flex" onClick={() => { setProfileDPD(!profiledpd); inboxdpd && setInboxDPD(false); notificationdpd && setNotificationDPD(false) }}>
-                            <span>
-                                <img src="/images/users/15.jpg" alt="profile-user" className="avatar  profile-user brround cover-image" />
+                            <span className='img-fit'>
+                                <img src="/images/users/uservatar.png" alt="profile-user" className="avatar profile-user brround cover-image" />
                             </span>
                         </a>
                         {/* Profile Dropdown */}
@@ -192,14 +192,14 @@ const Navbar = () => {
                             <img src="/images/brand/logo.png" className="header-brand-img desktop-logo" alt="logo" />
                         </a>
                         <div className="d-flex order-lg-2 ml-auto header-right-icons">
-                            <button className="navbar-toggler navresponsive-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                            <button className="navbar-toggler navresponsive-toggler d-md-none" type="button"
                                 aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon fe fe-more-vertical text-white"></span>
                             </button>
                             <div className="dropdown profile-1">
                                 <a href="#" data-toggle="dropdown" className="nav-link pr-2 leading-none d-flex">
                                     <span>
-                                        <img src="../../assets/images/users/15.jpg" alt="profile-user" className="avatar  profile-user brround cover-image" />
+                                        <img src="/images/users/uservatar.png" alt="profile-user" className="avatar profile-user brround cover-image" />
                                     </span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">

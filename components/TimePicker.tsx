@@ -8,7 +8,7 @@ type SelectProp = {
 
 export const Hour: React.FC<SelectProp> = ({ name }) => {
   return (
-    <select name={name} id="" className='form-control select2 custom-select col-4'>
+    <select name={name} id="" className='form-control select2 custom-select col-6'>
       <option value="AM">AM</option>
       <option value="PM">PM</option>
     </select>
@@ -17,7 +17,7 @@ export const Hour: React.FC<SelectProp> = ({ name }) => {
 
 const TimeSelect: React.FC<SelectProp> = ({ name, title, value, setValue }) => {
   return (
-    <select name={name} className="form-control select2 custom-select col-4" value={value} onChange={(e: any) => setValue(e.target.value)}>
+    <select name={name} className="form-control select2 custom-select col-8" value={value} onChange={(e: any) => setValue(e.target.value)}>
       <option value="">{title}</option>
       <option value="01:00 AM">01:00 AM</option>
       <option value="02:00 AM">02:00 AM</option>

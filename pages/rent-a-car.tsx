@@ -184,7 +184,7 @@ const CarRent = () => {
                                                 <br />
                                             </div>
                                         )}
-                                        <Image selectedImage={image} setSelectedImage={setImage} />
+                                        <Image name={"picture"} setSelectedImage={setImage} />
 
                                     </div>
                                     <div className="form-group">

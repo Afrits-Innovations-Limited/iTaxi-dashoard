@@ -8,30 +8,32 @@ import DayPicker from "../components/DayPicker"
 import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import Axios from '../context/Axios';
+import { InfoAlert, WarningAlert } from './Alert';
 
 
-const UpdateCars = () => {
-    const { token } = useContext(AppContext)
-    const [image, setImage] = useState(null)
+const UpdateCars = ({ id }) => {
+    const { token, carsForRent } = useContext(AppContext)
+    const carToUpdate = carsForRent.find(carId => carId.id == id)
+    const [picture, setPicture] = useState("")
     const [year, setYear] = useState("")
     const [open_day, setOpenDay] = useState("")
     const [close_day, setCloseDay] = useState("")
     const [open_time, setOpenTime] = useState("")
     const [close_time, setCloseTime] = useState("")
-    const [carPrice, setCarPrice] = useState()
-    const [name, setName] = useState("")
-    const [car_make_id, setCarMake] = useState("")
-    const [model, setModel] = useState("")
-    const [interior, setInterior] = useState("")
-    const [engine, setEngine] = useState("")
-    const [seats, setSeats] = useState("")
-    const [speed, setSpeed] = useState("")
-    const [transmission, setTransmission] = useState("")
-    const [luggage, setLuggage] = useState("")
-    const [availability, setAvailabilty] = useState("")
-    const [address, setAddress] = useState("")
-
-
+    const [price, setPrice] = useState(carToUpdate.price)
+    const [name, setName] = useState(carToUpdate.name)
+    const [car_make_id, setCarMake] = useState(carToUpdate.car_make_id)
+    const [model, setModel] = useState(carToUpdate.model)
+    const [interior, setInterior] = useState(carToUpdate.interior)
+    const [engine, setEngine] = useState(carToUpdate.engine)
+    const [seat, setSeat] = useState(carToUpdate.seats)
+    const [speed, setSpeed] = useState(carToUpdate.speed)
+    const [transmission, setTransmission] = useState(carToUpdate.transmission)
+    const [luggage, setLuggage] = useState(carToUpdate.luggage)
+    const [availability, setAvailabilty] = useState(carToUpdate.availability)
+    const [address, setAddress] = useState(carToUpdate.address)
+    const [brand, setBrand] = useState(carToUpdate.brand)
+    const [phone, setPhone] = useState(carToUpdate.phone)
     const [error, setError] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
@@ -45,7 +47,8 @@ const UpdateCars = () => {
         }
     }
 
-    const ApiLink = "/v1/admin/cars/rent/update/13"
+
+    const Endpoint = `/v1/admin/cars/rent/update/${id}`
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,7 +65,9 @@ const UpdateCars = () => {
         const data = {
             name,
             address,
-            seats,
+            brand,
+            phone,
+            seat,
             luggage,
             interior,
             model,
@@ -75,13 +80,13 @@ const UpdateCars = () => {
             close_day,
             open_time,
             close_time,
-            carPrice,
+            price,
             car_make_id,
-            image
+            picture
         }
 
         try {
-            const response = await Axios.post(ApiLink, data, config);
+            const response = await Axios.post(Endpoint, data, config);
             if (response.data.status === true) {
                 setAlert(true)
                 setAlertMessage(response.data.message)
@@ -104,13 +109,15 @@ const UpdateCars = () => {
 
 
     return (
-        <DashboardLayout title={"iTaxi - Rent A Car"} description={"car for hire"}>
+        <DashboardLayout title={"iTaxi - Update A Car"} description={"car for hire"}>
             <div className="page-header">
             </div>
             <div className="row">
                 <div className="col-md-12">
                     <div className="card">
                         <div className="card-header">
+                            {alert && <InfoAlert alertText={alertMessage} />}
+                            {error && <WarningAlert alertText={alertMessage} />}
                             <h3 className="mb-0 card-title">Cars for Rent</h3>
                         </div>
                         <div className="card-body">
@@ -123,8 +130,12 @@ const UpdateCars = () => {
                                         }} />
                                     </div>
                                     <div className="form-group">
-                                        <label className="form-label">Car Make</label>
-                                        <input type="text" className="form-control" name="car_make_id" placeholder="Car Make" value={car_make_id} onChange={(e) => setCarMake(e.target.value)} />
+                                        <label className="form-label">Car Make ID</label>
+                                        <input type="text" className="form-control" name="car_make_id" placeholder="Car Make ID" value={car_make_id} onChange={(e) => setCarMake(e.target.value)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="form-label">Car Brand</label>
+                                        <input type="text" className="form-control" name="brand" placeholder="Car Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Model</label>
@@ -147,7 +158,7 @@ const UpdateCars = () => {
 
                                         <div className='currency-input'>
                                             <span className='prefix-currency'>N</span>
-                                            <input type="number" placeholder='Price' className='form-control currency-control' min={1000} value={carPrice} onChange={(e: any) => setCarPrice(e.target.value)} />
+                                            <input type="number" placeholder='Price' className='form-control currency-control' min={1000} value={price} onChange={(e: any) => setPrice(e.target.value)} />
                                         </div>
 
                                     </div>
@@ -162,8 +173,13 @@ const UpdateCars = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label className="form-label">Seats</label>
-                                        <input type="text" className="form-control" name="seats" placeholder="Seats" value={seats} onChange={(e: any) => setSeats(e.target.value)} />
+                                        <label className="form-label">Phone Number</label>
+                                        <input type="number" className="form-control" name="phone" id="phone" value={phone} onChange={(e: any) => setPhone(e.target.value)} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label className="form-label">Seat</label>
+                                        <input type="text" className="form-control" name="seats" placeholder="Seat" value={seat} onChange={(e: any) => setSeat(e.target.value)} />
                                     </div>
                                     <div className="form-group m-0">
                                         <label className="form-label">Transmission</label>
@@ -177,16 +193,16 @@ const UpdateCars = () => {
 
                                     <div className="form-group">
                                         <label className="form-label">Picture</label>
-                                        {image && (
+                                        {/* {picture && (
                                             <div>
-                                                <img alt="not fount" width={"250px"} src={URL.createObjectURL(image)} />
+                                                <img alt="not fount" width={"250px"} src={URL.createObjectURL(picture)} />
 
-                                                <button className='btn' onClick={() => setImage(null)}>Remove</button>
+                                                <button className='btn' onClick={() => setPicture(null)}>Remove</button>
                                                 <br />
                                                 <br />
                                             </div>
-                                        )}
-                                        <Image selectedImage={image} setSelectedImage={setImage} />
+                                        )} */}
+                                        <Image name={"picture"} setSelectedImage={setPicture} />
 
                                     </div>
                                     <div className="form-group">
@@ -205,12 +221,13 @@ const UpdateCars = () => {
                                         <label className="form-label">Close Time</label>
                                         <TimeSelect name={"close_time"} title={"Close Time"} value={close_time} setValue={setCloseTime} />
                                     </div>
+
                                     <div className="form-group">
                                         <label className="form-label">Availability</label>
-                                        <select name="availability" className='form-control select2 col-4' onChange={(e: any) => setAvailabilty(e.target.value)} value={availability}>
+                                        <select name="availability" className='form-control select2 col-12' onChange={(e: any) => setAvailabilty(e.target.value)} value={availability}>
                                             <option value="" >Set Availability</option>
-                                            <option value="Yes">YES</option>
-                                            <option value="No">NO</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
                                         </select>
                                     </div>
 

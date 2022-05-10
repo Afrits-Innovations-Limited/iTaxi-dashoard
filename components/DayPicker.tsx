@@ -9,7 +9,7 @@ type SelectProp = {
 
 const DayPicker: React.FC<SelectProp> = ({ name, title, value, setValue }) => {
   return (
-    <select name={name} id="" className='form-control select2 custom-select col-4' value={value} onChange={(e: any) => setValue(e.target.value)}>
+    <select name={name} id="" className='form-control select2 custom-select col-8' value={value} onChange={(e: any) => setValue(e.target.value)}>
       <option value="">{title}</option>
       <option value="Sunday" disabled>SUN</option>
       <option value="Monday" >MON</option>

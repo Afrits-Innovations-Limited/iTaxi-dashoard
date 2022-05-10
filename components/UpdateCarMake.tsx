@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Image from "../components/Image"
 import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
@@ -8,18 +8,15 @@ import { InfoAlert, WarningAlert } from './Alert'
 import 'react-image-upload/dist/index.css'
 
 
-
-type FileInput = {
-    picture: File
-}
-
-const CreateCarMake = () => {
+const UpdateCarMake = ({ id }) => {
 
     const router = useRouter()
-    const { token } = useContext(AppContext)
-    const [description, setDescription] = useState("")
-    const [name, setName] = useState("")
-    const [picture, setPicture] = useState()
+    const { token, cars } = useContext(AppContext)
+    const carToUpdate = cars.find(carId => carId.id == id)
+    const [description, setDescription] = useState(carToUpdate.description)
+    const [name, setName] = useState(carToUpdate.name)
+    // const [ImageFiles, setImageFile] = useState()
+    const [picture, setPicture] = useState("")
     const [alert, setAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
     const [error, setError] = useState(false)
@@ -34,8 +31,7 @@ const CreateCarMake = () => {
         }
     }
 
-    const createCarMakeAPI = "/v1/admin/cars/make/create"
-    const formRef = useRef()
+    const UpdateCarMakeAPI = `/v1/admin/cars/make/update/${id}`
     useEffect(() => {
         setTimeout(() => {
             if (alert) {
@@ -46,76 +42,65 @@ const CreateCarMake = () => {
         }, 3000);
     }, [alert, error]);
 
+    // const getImageFileObject = (imageFile) => {
+    //     setPicture(imageFile.file)
+    //     console.log(imageFile);
+    //     console.log(imageFile.file)
+    // }
+    // const runAfterImageDelete = (file) => {
+    //     setPicture(null)
+    //     console.log(file);
+
+    // }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        // const data = {
-        //     name,
-        //     description,
-        //     picture,
-        // }
-        // console.log(picture);
-        // console.log(data)
+        console.log(picture);
+        const data = {
+            name,
+            description,
+            picture,
+        }
+        console.log(picture);
 
-        // try {
-        //     const response = await Axios.post(createCarMakeAPI, data, config);
-        //     if (response.data.status === true) {
-        //         setAlert(true)
-        //         setAlertMessage(response.data.message)
-        //         console.log(response.data)
 
-        //     } else {
-        //         console.log(response.data.message);
-        //         setError(true)
-        //         setAlertMessage(response.data.message)
-        //     }
-        // }
+        console.log(data)
 
-        // catch (err: any) {
-        //     console.log(err)
-        //     setError(true)
-        //     setAlertMessage(err.message)
-        // }
+        try {
+            const response = await Axios.post(UpdateCarMakeAPI, data, config);
+            if (response.data.status === true) {
+                setAlert(true)
+                setAlertMessage(response.data.message)
+                console.log(response.data)
 
-        var formdata = new FormData();
-        formdata.append("name", name);
-        formdata.append("picture", picture, "passport.jpg");
-        formdata.append("description", description);
+            } else {
+                console.log(response.data.message);
+                setError(true)
+                setAlertMessage(response.data.message)
+            }
+        }
 
-        console.log(picture)
-        var myHeaders = new Headers();
-        myHeaders.append("Accept", "application/json");
-        myHeaders.append("Authorization", AuthUser);
-
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-        };
-
-        fetch("https://itaxi.dap.ng/api/v1/admin/cars/make/create", requestOptions)
-            .then(response => {
-                console.log("response: ", response)
-                return response
-            })
-            .then(result => console.log("result: ", result))
-            .catch(error => console.log('error', error));
+        catch (err: any) {
+            console.log(err)
+            setError(true)
+            setAlertMessage(err.message)
+        }
 
     }
 
     return (
-        <div className='d-flex justify-content-center align-items-center '>
+        <div className='d-flex justify-content-center align-items-center'>
             <div className="card col-6">
 
                 {alert && <InfoAlert alertText={alertMessage} />}
                 {error && <WarningAlert alertText={alertMessage} />}
                 <div className="card-header">
-                    <h3 className="mb-0 card-title">Create Car Make</h3>
+                    <h3 className="mb-0 card-title">Update Car Make</h3>
                 </div>
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-12">
-                            <form className='login100-form'>
+                        <div className="">
+                            <form className=''>
                                 <div className="form-group">
                                     <label className="form-label">Enter Car Name</label>
                                     <input type="text" className="form-control" name="name" placeholder="Name" value={name} onChange={(e: any) => setName(e.target.value)} required />
@@ -126,9 +111,14 @@ const CreateCarMake = () => {
                                 </div>
                                 <div className="form-group">
                                     <label className="form-label">Enter Car Image</label>
-                                    <Image name={"pictute"} setSelectedImage={setPicture} />
+                                    {/* <ImageUploader
+                                        // style={{ height: 200, width: 200, background: 'rgb(0 182 255)' }}
+                                        onFileAdded={(img) => getImageFileObject(img)}
+                                        onFileRemoved={(img) => runAfterImageDelete(img)}
+                                    /> */}
+
+                                    <input type="file" className="form-control" name="picture" placeholder="Picture" value={picture} onChange={(e: any) => setPicture(e.target.value)} />
                                 </div>
-                                {/* <input type="file"  accept="image/*" name="picture" onChange={(e: ChangeEvent<HTMLInputElement>) => setPicture(e.target)} /> */}
                                 <div>
                                     <button type='submit' className="btn btn-radius btn-secondary" onClick={handleSubmit}>Save</button>
                                 </div>
@@ -141,4 +131,4 @@ const CreateCarMake = () => {
     )
 }
 
-export default CreateCarMake
+export default UpdateCarMake

@@ -17,6 +17,8 @@
     "react-datetime": "^3.1.1",
     "react-dom": "18.0.0",
     "react-dropzone": "^12.1.0",
+    "react-icons": "^4.3.1",
+    "react-image-upload": "^2.0.1",
     "react-simple-star-rating": "^4.0.5",
     "react-time-ago": "^7.1.9",
     "react-uuid": "^1.0.2",

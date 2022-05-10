@@ -16,23 +16,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import type { AppProps } from 'next/app'
 import AppContext from '../context/AppContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ProtectedRoutes from '../context/ProtectedRoutes'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [toggle, setToggle] = useState(false)
+  const [carsForRent, setCarsForRent] = useState([])
   const [profileToggle, setProfileToggle] = useState(false)
   const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
-  const [cars, setCars] = useState({})
+  const [cars, setCars] = useState([])
   const [availableCars, setAvailableCars] = useState([])
   const [token, setToken] = useState("")
 
 
   const router = useRouter()
   const requireNoAuth = ['/', '/login', '/signup', '/forgot-password']
+
+
 
   return (
     <>
@@ -44,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>iTaxi</title>
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken, cars, setCars, availableCars, setAvailableCars }}>
+      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken, cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent }}>
         {requireNoAuth.includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (

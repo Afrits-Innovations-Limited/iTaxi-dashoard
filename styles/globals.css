@@ -73,3 +73,26 @@ padding: 0 20px;
   width: 100px;
   /* margin-left: -10px; */
 }
+.fnc-btn{
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.rounded-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rounded-img img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.img-fit{
+  width: 100%;
+  object-fit: cover;
+}

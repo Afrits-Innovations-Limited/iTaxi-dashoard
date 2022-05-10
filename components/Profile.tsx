@@ -18,23 +18,17 @@ const Profile = () => {
                 </div>
                 <div className="card-body p-0">
                     <div className="header-user text-center mt-4 pb-4">
-                        <span className="avatar avatar-xxl brround">
-                            <img src="/images/users/15.jpg" alt="Profile-img" className="avatar avatar-xxl brround" /></span>
+                        <span className="avatar avatar-xxl brround rounded-img">
+                            <img src="/images/users/uservatar.png" alt="Profile-img" className="avatar avatar-xxl brround" /></span>
                         <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{admin.lastname} {admin.firstname}</div>
                         <small className='block'>{admin.email}</small>
                         <small className='block'>{admin.phone}</small>
                         <small className='block'>{admin.account_type}</small>
                     </div>
-                    <a className="dropdown-item  border-top" href="#">
-                        <i className="dropdown-icon mdi mdi-account-outline "></i>
-                        {date}
-                    </a>
-                    <a className="dropdown-item  border-top" href="#">
-                        <i className="dropdown-icon mdi mdi-account-outline "></i>
-                    </a>
+
                     <div className="card-body border-top">
                         <div className="row">
-                            <div className="col-4 text-center">
+                            {/* <div className="col-4 text-center">
                                 <Link href={""}>
                                     <a className=""><i className="dropdown-icon mdi  mdi-message-outline fs-30 m-0 leading-tight"></i><div>Inbox</div></a>
                                 </Link>
@@ -47,8 +41,8 @@ const Profile = () => {
 
                                 </Link>
 
-                            </div>
-                            <div className="col-4 text-center">
+                            </div> */}
+                            <div className="col-12 text-center">
                                 <Link href="/login">
                                     <a className="" ><i className="dropdown-icon mdi mdi-logout-variant fs-30 m-0 leading-tight"></i>
                                         <div>Sign out</div>
