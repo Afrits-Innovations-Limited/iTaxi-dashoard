@@ -52,12 +52,37 @@ const ViewDriver = () => {
                                     <h4 className="h6 mb-0 mt-3">{driver.user.email} </h4>
 
                                 </div>
-                                <div className="card-footer text-center">
+                                <div className="card-footer text-left">
                                     <div className="row user-social-detail">
-                                        <div className="col-6">
+                                        <div className="col-12">
                                             Licence:
-                                            <Link href={`http://itaxi.dap.ng/v1/storage/${driver.driver_license.file}`} >
-                                                <a className='btn btn-primary button-icon mr-3 mt-1 mb-1'>View Licence</a>
+                                            {/* ${driver.driver_license.file} */}
+                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
+                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
+                                            </Link>
+
+                                        </div>
+                                        <div className="col-12">
+                                            Insurance:
+                                            {/* ${driver.insurance.file} */}
+                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
+                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
+                                            </Link>
+
+                                        </div>
+                                        <div className="col-12">
+                                            Permit:
+                                            {/* ${driver.permit.file} */}
+                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
+                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
+                                            </Link>
+
+                                        </div>
+                                        <div className="col-12">
+                                            Vehicle Registration:
+                                            {/* ${driver.vehicle_registration.file} */}
+                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
+                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
                                             </Link>
 
                                         </div>
