@@ -8,7 +8,7 @@ import Link from 'next/link'
 const ViewDriver = () => {
 
     const router = useRouter()
-    const { token, data, setData, setPendingDrivers, pendingDrivers } = useContext(AppContext)
+    const { token, setPendingDrivers, pendingDrivers } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const { did } = router.query
     const config = {
@@ -29,7 +29,9 @@ const ViewDriver = () => {
         });
     }, [])
 
+    const handleApprove = () => {
 
+    }
     return (
         <>
             <DashboardLayout title={"iTaxi - Pending Drivers"} description={"car for hire"}>
@@ -42,7 +44,9 @@ const ViewDriver = () => {
                                 <div className="card-header ">
                                     <h3 className="card-title ">Unapproved Driver</h3>
                                     <div className="card-options">
-
+                                        <button className='btn btn-success button-icon ml-3 mt-1 mb-1' onClick={handleApprove}>
+                                            Approve
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="card-body text-center">

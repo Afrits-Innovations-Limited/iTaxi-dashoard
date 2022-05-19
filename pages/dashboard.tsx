@@ -92,7 +92,7 @@ const Dashboard: NextPage = () => {
                             <div className="card-order">
                                 <h6 className="mb-2">Drivers</h6>
                                 <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-success text-success-shadow"></i><span>{usersReport.drivers}</span></h2>
-                                <p className="mb-0">Monthly<span className="float-right">{usersReport.drivers}</span></p>
+                                <p className="mb-0"></p>
                             </div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@ const Dashboard: NextPage = () => {
                         <div className="card-body">
                             <div className="card-widget">
                                 <h6 className="mb-2">Riders</h6>
-                                <h2 className="text-right"><i className="mdi mdi-account-multiple icon-size float-left text-warning text-warning-shadow"></i><span>{usersReport.riders}</span></h2>
-                                <p className="mb-0">Monthly<span className="float-right">{usersReport.riders}</span></p>
+                                <h2 className="text-right"><i className="zmdi zmdi-pin icon-size float-left text-warning text-warning-shadow"></i><span>{usersReport.riders}</span></h2>
+                                <p className="mb-0"></p>
                             </div>
                         </div>
                     </div>
@@ -112,8 +112,8 @@ const Dashboard: NextPage = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="card-widget">
-                                <h6 className="mb-2">Total Revenue</h6>
-                                <span>
+                                <span className="h6 mb-2">Total Revenue</span>
+                                <span className="ml-5">
                                     <select name="time-frame" id="" onChange={(e: any) => setTimeFrame(e.target.value)}>
                                         <option value="today">Today</option>
                                         <option value="lastWeek">Last Week</option>
@@ -121,8 +121,8 @@ const Dashboard: NextPage = () => {
                                         <option value="byDate">By Date</option>
                                     </select>
                                 </span>
-                                <h2 className="text-right"><i className="icon-size mdi mdi-poll-box  float-left text-info text-info-shadow"></i><span>N{" "} {revenue.summary === null || revenue.amount === 0 ? "0.00" : revenue.amount - revenue.driver_amount}</span></h2>
-                                <p className="mb-0">Monthly<span className="float-right">$4,678</span></p>
+                                <h2 className="text-right mt-3"><i className="icon-size zmdi zmdi-money-box  float-left text-info text-info-shadow"></i><span>N{" "} {revenue.summary === null || revenue.amount === 0 ? "0.00" : revenue.amount - revenue.driver_amount}</span></h2>
+
                             </div>
                         </div>
                     </div>
