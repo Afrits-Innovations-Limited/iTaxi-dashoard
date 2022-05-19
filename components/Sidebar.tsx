@@ -49,6 +49,11 @@ const Sidebar = () => {
                         <a className="side-menu__item" data-toggle="slide" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
                         <ul className={`slide-menu`}>
                             <li>
+                                <Link href="/dashboard">
+                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i>Home</a>
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/cars">
                                     <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Cars</a>
                                 </Link>
@@ -61,7 +66,22 @@ const Sidebar = () => {
                         </ul>
                     </li>
                     {/* <li><h3>Drivers &amp; Customers</h3></li> */}
-                    <li><h3>Cars</h3></li>
+                    <li><h3>ADMIN</h3></li>
+                    <li>
+                        <Link href="/list-drivers">
+                            <a className="side-menu__item" ><span className="side-menu__label">Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/list-riders">
+                            <a className="side-menu__item" ><span className="side-menu__label">Riders</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/pending-drivers">
+                            <a className="side-menu__item" ><span className="side-menu__label">Pending Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        </Link>
+                    </li>
                     <li>
                         <Link href="/cars-for-rent">
                             <a className="side-menu__item" ><span className="side-menu__label">Cars For Rent</span><i className="side-menu__icon fe fe-layers"></i></a>

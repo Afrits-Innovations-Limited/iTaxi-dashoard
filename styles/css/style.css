@@ -7255,7 +7255,9 @@ progress {
   border: 0; }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.02); }
+  /* background-color: rgba(0, 0, 0, 0.02);  */
+  background-color: white; 
+}
 
 .table-hover tbody tr:hover, .table-hover tbody th {
   background-color: #f3f6fb; }
@@ -7451,10 +7453,12 @@ progress {
   text-align: center; }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background: transparent; }
+  background: #fafaff; }
 
 .table-striped tbody tr:nth-of-type(even) {
-  background-color: #f3f6fb; }
+  /* background-color: #f3f6fb; */
+  background-color: #fff;
+ }
 
 .table-calendar {
   margin: 0 0 .75rem; }

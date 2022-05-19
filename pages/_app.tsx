@@ -25,17 +25,34 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [toggle, setToggle] = useState(false)
   const [carsForRent, setCarsForRent] = useState([])
   const [profileToggle, setProfileToggle] = useState(false)
+  const [pendingDrivers, setPendingDrivers] = useState([])
   const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
   const [cars, setCars] = useState([])
   const [availableCars, setAvailableCars] = useState([])
+  const [revenue, setRevenue] = useState({})
+  const [usersReport, setUsersReport] = useState({})
   const [token, setToken] = useState("")
+  const [data, setData] = useState({})
 
 
   const router = useRouter()
   const requireNoAuth = ['/', '/login', '/signup', '/forgot-password']
 
-
+  const contextProvider = {
+    data, setData,
+    revenue,
+    usersReport,
+    setRevenue,
+    setUsersReport, admin, setAdmin,
+    toggle,
+    setToggle,
+    profileToggle,
+    setProfileToggle,
+    auth, setAuth, token, setToken, cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent,
+    pendingDrivers,
+    setPendingDrivers
+  }
 
   return (
     <>
@@ -45,9 +62,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <title>iTaxi</title>
-        <link rel="shortcut icon" href="/favicon.svg" />
+        {/* <link rel="shortcut icon" href="/favicon.png" /> */}
       </Head>
-      <AppContext.Provider value={{ toggle, setToggle, profileToggle, setProfileToggle, auth, setAuth, admin, setAdmin, token, setToken, cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent }}>
+      <AppContext.Provider value={contextProvider}>
         {requireNoAuth.includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (

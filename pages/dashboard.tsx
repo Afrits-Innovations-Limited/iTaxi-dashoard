@@ -1,33 +1,147 @@
 import { NextPage } from "next";
 import DashboardLayout from "../layouts/Dashboard";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import Link from "next/link";
+import Axios from "../context/Axios";
 
 const Dashboard: NextPage = () => {
 
-    const { toggle, admin } = useContext(AppContext)
+    const { token, admin, revenue, setRevenue, usersReport, setUsersReport, pendingDrivers, setPendingDrivers } = useContext(AppContext)
+    const AuthUser = "Bearer " + token;
+    const [timeFrame, setTimeFrame] = useState("today")
+    const [revenueReportAPI, setAPIEndpoint] = useState("")
+    const [dateFrom, setDateFrom] = useState("")
+    const [dateTo, setDateTo] = useState("")
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': "*",
+            'Accept': "application/json",
+            "Authorization": AuthUser,
+        }
+    }
+
+    const userReportAPI = "/v1/admin/users/count"
+
+
+
+    const pendingDriversAPI = "/v1/admin/users/drivers/pending"
+
+    // Fetching UnapprovedDrivers
+    useEffect(() => {
+        Axios.get(pendingDriversAPI, config).then((response) => {
+
+            console.log(response.data.data)
+            setPendingDrivers(response.data.data.data);
+        });
+    }, [])
+
+    // Fetching UsersReport
+    useEffect(() => {
+        Axios.get(userReportAPI, config).then((response) => {
+
+            console.log(response.data.data)
+            setUsersReport(response.data.data);
+        });
+    }, [])
+
+    // Fetching Revenue Report
+    useEffect(() => {
+        if (timeFrame === "today") {
+            setAPIEndpoint("/v1/admin/earning/today")
+        }
+        else if (timeFrame === "lastWeek") {
+            setAPIEndpoint("/v1/admin/earning/last-week")
+        }
+        else if (timeFrame === "allWeek") {
+            setAPIEndpoint("/v1/admin/earning/this-week")
+        } else if (timeFrame === "bydate") {
+            setAPIEndpoint(`/v1/admin/earning/bydate?from=${dateFrom}&to=${dateTo}`)
+        } else {
+            setAPIEndpoint("/v1/admin/earning/today")
+        }
+        Axios.get(revenueReportAPI, config).then((response) => {
+            console.log(response.data.data)
+            setRevenue(response.data.data);
+            console.log(timeFrame);
+            console.log("revenue", revenue.summary)
+
+        });
+    }, [timeFrame])
+
+    const derivedRevenue = revenue.amount - revenue.driver_amount
 
     return (
         <DashboardLayout title={"iTaxi"} description={"Home page"}>
             <div className="page-header">
-                {/* <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><a href="#"><h3 className="mb-0 breadcrump-tittle">Welcome {user.name}!</h3></a></li>
-                        </ol> */}
             </div>
 
             <div className="">
                 <div className="banner banner-color mt-0 row">
-                    {/* <div className="col-xl-1 col-lg-2 col-md-12 p-0">
-                        <img src="htps://www.spruko.com/demo/flaira/Flaira/assets/images/svgs/email.svg" alt="image" className="image" />
-                    </div> */}
                     <div className="page-content col-xl-7 col-lg-6 col-md-12">
                         <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{admin.lastname} {admin.firstname} </span></h3>
                     </div>
                 </div>
             </div>
             <div className="row">
-
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-order">
+                                <h6 className="mb-2">Drivers</h6>
+                                <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-success text-success-shadow"></i><span>{usersReport.drivers}</span></h2>
+                                <p className="mb-0">Monthly<span className="float-right">{usersReport.drivers}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card ">
+                        <div className="card-body">
+                            <div className="card-widget">
+                                <h6 className="mb-2">Riders</h6>
+                                <h2 className="text-right"><i className="mdi mdi-account-multiple icon-size float-left text-warning text-warning-shadow"></i><span>{usersReport.riders}</span></h2>
+                                <p className="mb-0">Monthly<span className="float-right">{usersReport.riders}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-widget">
+                                <h6 className="mb-2">Total Revenue</h6>
+                                <span>
+                                    <select name="time-frame" id="" onChange={(e: any) => setTimeFrame(e.target.value)}>
+                                        <option value="today">Today</option>
+                                        <option value="lastWeek">Last Week</option>
+                                        <option value="allWeek">This week</option>
+                                        <option value="byDate">By Date</option>
+                                    </select>
+                                </span>
+                                <h2 className="text-right"><i className="icon-size mdi mdi-poll-box  float-left text-info text-info-shadow"></i><span>N{" "} {revenue.summary === null || revenue.amount === 0 ? "0.00" : revenue.amount - revenue.driver_amount}</span></h2>
+                                <p className="mb-0">Monthly<span className="float-right">$4,678</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-order">
+                                <h6 className="mb-2">Unapproved Drivers</h6>
+                                <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-danger text-danger-shadow strikethrough"></i><span>{pendingDrivers.length === 0 ? '0' : pendingDrivers.length}</span></h2>
+                                <p className="mb-0">
+                                    <span className="float-right"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </DashboardLayout>
 
