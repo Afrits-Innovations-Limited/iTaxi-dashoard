@@ -1,5 +1,5 @@
 export const metadata = {
-    siteName: "itaxi",
+    siteName: "iTaxi",
     title: "iTaxi",
     author: "AfritsInnovations",
     description: "",
@@ -7,7 +7,7 @@ export const metadata = {
     siteUrl: "www.itaxi.ng",
     siteImageURL:
       "",
-    favicon: "/favicon.png",
+    favicon: "/favicon.ico",
     email: "address@yoursite.com",
     locale: "en-US",
     analytics: {

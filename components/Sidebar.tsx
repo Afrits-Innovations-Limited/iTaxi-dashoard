@@ -78,6 +78,11 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link href="/pending-admins">
+                            <a className="side-menu__item" ><span className="side-menu__label">Pending Admins</span><i className="side-menu__icon fe fe-layers"></i></a>
+                        </Link>
+                    </li>
+                    <li>
                         <Link href="/pending-drivers">
                             <a className="side-menu__item" ><span className="side-menu__label">Pending Drivers</span><i className="side-menu__icon fe fe-layers"></i></a>
                         </Link>

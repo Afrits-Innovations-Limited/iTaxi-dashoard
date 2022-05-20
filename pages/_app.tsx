@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [carsForRent, setCarsForRent] = useState([])
   const [profileToggle, setProfileToggle] = useState(false)
   const [pendingDrivers, setPendingDrivers] = useState([])
+  const [pendingAdmins, setPendingAdmins] = useState([])
   const [auth, setAuth] = useState(false)
   const [admin, setAdmin] = useState({})
   const [cars, setCars] = useState([])
@@ -34,24 +35,32 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [usersReport, setUsersReport] = useState({})
   const [token, setToken] = useState("")
   const [data, setData] = useState({})
+  const [userPhone, setUserPhone] = useState("")
 
 
   const router = useRouter()
   const requireNoAuth = ['/', '/login', '/signup', '/forgot-password']
 
   const contextProvider = {
-    data, setData,
+    userPhone,
+    setUserPhone,
+    data,
+    setData,
     revenue,
     usersReport,
     setRevenue,
-    setUsersReport, admin, setAdmin,
+    setUsersReport,
+    admin,
+    setAdmin,
     toggle,
     setToggle,
     profileToggle,
     setProfileToggle,
     auth, setAuth, token, setToken, cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent,
     pendingDrivers,
-    setPendingDrivers
+    setPendingDrivers,
+    pendingAdmins,
+    setPendingAdmins
   }
 
   return (
@@ -62,7 +71,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <title>iTaxi</title>
-        {/* <link rel="shortcut icon" href="/favicon.png" /> */}
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon-32x32.png" />
+        <link rel="shortcut icon" href="/favicon-16x16.png" />
+
       </Head>
       <AppContext.Provider value={contextProvider}>
         {requireNoAuth.includes(router.pathname) ? (

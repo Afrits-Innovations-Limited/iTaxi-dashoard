@@ -7,7 +7,7 @@ import Axios from "../context/Axios";
 
 const Dashboard: NextPage = () => {
 
-    const { token, admin, revenue, setRevenue, usersReport, setUsersReport, pendingDrivers, setPendingDrivers } = useContext(AppContext)
+    const { token, admin, revenue, setRevenue, usersReport, setUsersReport, pendingDrivers, setPendingDrivers, pendingAdmins, setPendingAdmins } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const [timeFrame, setTimeFrame] = useState("today")
     const [revenueReportAPI, setAPIEndpoint] = useState("")
@@ -28,6 +28,7 @@ const Dashboard: NextPage = () => {
 
 
     const pendingDriversAPI = "/v1/admin/users/drivers/pending"
+    const pendingAdminsAPI = "/v1/admin/users/admins/pending"
 
     // Fetching UnapprovedDrivers
     useEffect(() => {
@@ -35,6 +36,15 @@ const Dashboard: NextPage = () => {
 
             console.log(response.data.data)
             setPendingDrivers(response.data.data.data);
+        });
+    }, [])
+
+    // Fetching UnapprovedAdmin
+    useEffect(() => {
+        Axios.get(pendingAdminsAPI, config).then((response) => {
+
+            console.log(response.data.data)
+            setPendingAdmins(response.data.data.data);
         });
     }, [])
 
@@ -135,6 +145,19 @@ const Dashboard: NextPage = () => {
                             <div className="card-order">
                                 <h6 className="mb-2">Unapproved Drivers</h6>
                                 <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-danger text-danger-shadow strikethrough"></i><span>{pendingDrivers.length === 0 ? '0' : pendingDrivers.length}</span></h2>
+                                <p className="mb-0">
+                                    <span className="float-right"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-order">
+                                <h6 className="mb-2">Unapproved Admins</h6>
+                                <h2 className="text-right "><i className="mdi mdi-account icon-size float-left text-danger text-danger-shadow strikethrough"></i><span>{pendingAdmins.length === 0 ? '0' : pendingAdmins.length}</span></h2>
                                 <p className="mb-0">
                                     <span className="float-right"></span>
                                 </p>

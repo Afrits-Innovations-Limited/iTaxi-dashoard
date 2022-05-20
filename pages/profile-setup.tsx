@@ -6,16 +6,15 @@ import AppContext from '../context/AppContext'
 import Axios, { config } from '../context/Axios'
 
 const ProfileSetup = () => {
-
+    const { setAdmin, setToken, userPhone } = useContext(AppContext)
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [account, setAccount] = useState("")
+    const [phone, setPhone] = useState(userPhone)
     const [alert, setAlert] = useState(false)
     const [error, setError] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
-    const { setAdmin, setToken } = useContext(AppContext)
+
     const setProfileAPI = "/v1/rider/login/phone/setup"
 
     useEffect(() => {
@@ -35,7 +34,7 @@ const ProfileSetup = () => {
             email,
             lastname,
             firstname,
-            account_type: account
+            account_type: "admin"
         }
 
         try {
@@ -101,15 +100,9 @@ const ProfileSetup = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="exampleInputnumber">Contact Number</label>
-                                                <input type="text" name="phone" className="form-control" placeholder="Phone number" value={phone} onChange={(e: any) => setPhone(e.target.value)} required />
+                                                <input type="text" name="phone" className="form-control" placeholder="Phone number" value={phone} onChange={(e: any) => setPhone(e.target.value)} readOnly />
                                             </div>
-                                            <div className="form-group">
-                                                <label htmlFor="exampleInputnumber">Account Type</label>
-                                                <select name="account_type" value={account} className="form-control select2" onChange={(e: any) => setAccount(e.target.value)} required>
-                                                    <option value="" selected>Select Account Type</option>
-                                                    <option value="admin"> Admin</option>
-                                                </select>
-                                            </div>
+
                                         </div>
                                         <div className="card-footer text-right">
                                             <button type='submit' className="btn btn-primary mt-1" onClick={handleSetup}>Save</button>

@@ -25,7 +25,7 @@ const Login: NextPage = () => {
     const LoginAPI = "/v1/rider/login/phone"
 
 
-    const { setAdmin, setAuth, setToken } = useContext(AppContext)
+    const { setAdmin, setAuth, setToken, setUserPhone } = useContext(AppContext)
 
     useEffect(() => {
         setTimeout(() => {
@@ -44,9 +44,10 @@ const Login: NextPage = () => {
         e.preventDefault();
         const data = {
             phone,
-            account_type: account
+            account_type: "admin"
         }
 
+        setUserPhone(phone)
         try {
             const response = await Axios.post(LoginAPI, data, config);
             console.log(response);
@@ -75,9 +76,10 @@ const Login: NextPage = () => {
         e.preventDefault()
         const data = {
             phone,
-            account_type: account,
+            account_type: "admin",
             otp: otp
         }
+
         try {
             const response = await Axios.post(VerifyAPI, data, config);
             if (response.data.status === true) {
@@ -162,13 +164,7 @@ const Login: NextPage = () => {
                                             <i className="zmdi zmdi-email" aria-hidden="true"></i>
                                         </span>
                                     </div>
-                                    <div className="wrap-input100 validate-input">
-                                        <input className="input100" type="text" name="account" placeholder="Account" value={account} onChange={(e: any) => setAccount(e.target.value)} required />
-                                        <span className="focus-input100"></span>
-                                        <span className="symbol-input100">
-                                            <i className="zmdi zmdi-lock" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
+
                                     <div className="wrap-input100 validate-input">
                                         <input className="input100" type="text" name="otp" placeholder="Enter 4 digit otp" value={otp} onChange={(e: any) => setOtp(e.target.value)} maxLength={4} required />
                                         <span className="focus-input100"></span>
