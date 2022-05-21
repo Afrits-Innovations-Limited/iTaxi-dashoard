@@ -1,64 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react'
-import DashboardLayout from '../layouts/Dashboard'
+import DashboardLayout from '../../layouts/Dashboard'
 import { useRouter } from 'next/router'
-import AppContext from '../context/AppContext'
-import Axios from '../context/Axios'
-import { InfoAlert } from '../components/Alert'
+import AppContext from '../../context/AppContext'
+import Axios from '../../context/Axios'
+import { InfoAlert } from '../../components/Alert'
 
 const PendingAdmins = () => {
 
     const router = useRouter()
-    const { token, setPendingAdmins, pendingAdmins } = useContext(AppContext)
-    const [alert, setAlert] = useState(false)
-    const [alertMessage, setAlertMessage] = useState("")
-    const AuthUser = "Bearer " + token;
-    const { did } = router.query
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': "*",
-            'Accept': "application/json",
-            "Authorization": AuthUser,
-        }
-    }
-    const pendingAdminsAPI = "/v1/admin/users/admins/pending"
-    const approveAdmin = `/v1/admin/users/admin/approve/${did}`
+    const { pendingAdmins } = useContext(AppContext)
+    // const [alert, setAlert] = useState(false)
+    // const [alertMessage, setAlertMessage] = useState("")
 
-    // Fetching Unapproved Admins
-    useEffect(() => {
-        Axios.get(pendingAdminsAPI, config).then((response) => {
-            console.log("pending", response.data.data)
-            setPendingAdmins(response.data.data.data);
-        });
-    }, [])
-
-    function handleApprove() {
-        useEffect(() => {
-            Axios.get(approveAdmin, config).then((response) => {
-                console.log("pending", response.data.data)
-                setAlert(true)
-                setAlertMessage(response.data.data.message)
-            });
-        })
-    }
 
 
     return (
         <>
             <DashboardLayout title={"iTaxi - Pending Admins"} description={"car for hire"}>
                 <div className="page-header">
-                    {alert && <InfoAlert alertText={alertMessage} />}
+                    {/* {alert && <InfoAlert alertText={alertMessage} />} */}
                 </div>
                 <div>
                     {pendingAdmins.map((admin, index) => (
-                        <div className="col-md-12 col-xl-4">
+                        <div className="col-md-12 col-xl-4" key={index}>
                             <div className="card ">
                                 <div className="card-header ">
                                     <h3 className="card-title ">Unapproved Admins</h3>
                                     <div className="card-options">
                                         <button className='btn btn-success button-icon ml-3 mt-1 mb-1' onClick={() => {
-                                            router.replace(`/pending-admins${admin.id}`)
-                                            handleApprove()
+                                            router.replace(`/pending-admins/${admin.id}`)
                                         }}>
                                             Approve
                                         </button>

@@ -10,7 +10,8 @@ const Dashboard: NextPage = () => {
     const { token, admin, revenue, setRevenue, usersReport, setUsersReport, pendingDrivers, setPendingDrivers, pendingAdmins, setPendingAdmins } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const [timeFrame, setTimeFrame] = useState("today")
-    const [revenueReportAPI, setAPIEndpoint] = useState("")
+    const [revenueReportAPI, setAPIEndpoint] = useState("/v1/admin/earning/today")
+    const [revenueData, setRevenueData] = useState("")
     const [dateFrom, setDateFrom] = useState("")
     const [dateTo, setDateTo] = useState("")
 
@@ -24,11 +25,9 @@ const Dashboard: NextPage = () => {
     }
 
     const userReportAPI = "/v1/admin/users/count"
-
-
-
     const pendingDriversAPI = "/v1/admin/users/drivers/pending"
     const pendingAdminsAPI = "/v1/admin/users/admins/pending"
+    let derivedRevenue
 
     // Fetching UnapprovedDrivers
     useEffect(() => {
@@ -56,32 +55,36 @@ const Dashboard: NextPage = () => {
             setUsersReport(response.data.data);
         });
     }, [])
-
-    // Fetching Revenue Report
     useEffect(() => {
-        if (timeFrame === "today") {
-            setAPIEndpoint("/v1/admin/earning/today")
-        }
-        else if (timeFrame === "lastWeek") {
-            setAPIEndpoint("/v1/admin/earning/last-week")
-        }
-        else if (timeFrame === "allWeek") {
-            setAPIEndpoint("/v1/admin/earning/this-week")
-        } else if (timeFrame === "bydate") {
-            setAPIEndpoint(`/v1/admin/earning/bydate?from=${dateFrom}&to=${dateTo}`)
-        } else {
-            setAPIEndpoint("/v1/admin/earning/today")
-        }
-        Axios.get(revenueReportAPI, config).then((response) => {
+        Axios.get("/v1/admin/earning/today", config).then((response) => {
             console.log(response.data.data)
-            setRevenue(response.data.data);
-            console.log(timeFrame);
-            console.log("revenue", revenue.summary)
+            setRevenue(response.data.data.summary);
 
         });
-    }, [timeFrame])
+    }, [])
 
-    const derivedRevenue = revenue.amount - revenue.driver_amount
+    // Fetching Revenue Report
+    // useEffect(() => {
+    //     if (timeFrame === "today") {
+    //         setAPIEndpoint("/v1/admin/earning/today")
+    //     } else if (timeFrame === "allWeek") {
+    //         setAPIEndpoint("/v1/admin/earning/this-week")
+    //     }
+    //     else if (timeFrame === "lastWeek") {
+    //         setAPIEndpoint("/v1/admin/earning/last-week")
+    //     }
+    //     else if (timeFrame === "bydate") {
+    //         setAPIEndpoint(`/v1/admin/earning/bydate?from=${dateFrom}&to=${dateTo}`)
+    //     } else {
+    //         setAPIEndpoint("/v1/admin/earning/today")
+    //     }
+    //     Axios.get(revenueReportAPI, config).then((response) => {
+    //         console.log(response.data.data)
+    //         setRevenue(response.data.data);
+
+    //     });
+    // }, [revenueReportAPI, timeFrame])
+
 
     return (
         <DashboardLayout title={"iTaxi"} description={"Home page"}>
@@ -122,16 +125,17 @@ const Dashboard: NextPage = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="card-widget">
-                                <span className="h6 mb-2">Total Revenue</span>
-                                <span className="ml-5">
+                                <span className="text-left font-weight-bold mb-2">Total Revenue</span>
+                                <span className="float-right font-weight-bold mb-2">Today</span>
+                                {/* <span className="ml-5">
                                     <select name="time-frame" id="" onChange={(e: any) => setTimeFrame(e.target.value)}>
                                         <option value="today">Today</option>
                                         <option value="lastWeek">Last Week</option>
                                         <option value="allWeek">This week</option>
                                         <option value="byDate">By Date</option>
                                     </select>
-                                </span>
-                                <h2 className="text-right mt-3"><i className="icon-size zmdi zmdi-money-box  float-left text-info text-info-shadow"></i><span>N{" "} {revenue.summary === null || revenue.amount === 0 ? "0.00" : revenue.amount - revenue.driver_amount}</span></h2>
+                                </span> */}
+                                <h2 className="text-right mt-3"><i className="icon-size zmdi zmdi-money-box  float-left text-info text-info-shadow"></i><span><del>N</del>{" "} {revenue.amount - revenue.driver_amount}</span></h2>
 
                             </div>
                         </div>

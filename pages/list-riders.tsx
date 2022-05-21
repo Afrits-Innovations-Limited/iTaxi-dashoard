@@ -70,9 +70,9 @@ const ListRiders = () => {
                                                 <td>{drivers.lastname}</td>
                                                 <td>{drivers.email}</td>
                                                 <td>{drivers.phone} </td>
-                                                <td><button
+                                                <td><a
                                                     onClick={() => { router.replace(`/admin/view-rider/${drivers.id}`) }}
-                                                    className='btn btn-primary button-icon mr-3 mt-1 mb-1'>View More</button></td>
+                                                    className='btn btn-primary button-icon mr-3 mt-1 mb-1' target={"_blank"}>View More</a></td>
                                             </tr>
                                         ))}
 

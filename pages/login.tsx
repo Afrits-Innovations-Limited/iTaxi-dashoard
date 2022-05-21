@@ -86,12 +86,16 @@ const Login: NextPage = () => {
                 if (response.data.data.token === null) {
                     setAuth(true)
                     router.push('/profile-setup')
-                } else {
+                } else if (response.data.data.user.admin.approved_at) {
                     setAuth(true)
                     setToken(response.data.data.token)
                     console.log(response.data.data.user);
                     setAdmin(response.data.data.user)
                     router.push('/dashboard')
+
+                } else {
+                    setAuth(true)
+                    router.push('/welcome')
                 }
             } else {
                 console.log(response.data.message);

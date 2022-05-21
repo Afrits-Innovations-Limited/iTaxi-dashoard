@@ -43,9 +43,7 @@ const ProfileSetup = () => {
                 setAlert(true)
                 setAlertMessage(response.data.message)
                 console.log(response.data)
-                Router.push("/dashboard")
-                setToken(response.data.data.token)
-                setAdmin(response.data.data.user)
+                Router.push("/welcome")
 
             } else {
                 console.log(response.data.message);

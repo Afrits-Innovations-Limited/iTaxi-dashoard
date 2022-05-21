@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ProtectedRoutes from '../context/ProtectedRoutes'
+import Axios from '../context/Axios'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [toggle, setToggle] = useState(false)
@@ -36,10 +37,37 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [token, setToken] = useState("")
   const [data, setData] = useState({})
   const [userPhone, setUserPhone] = useState("")
-
+  const AuthUser = "Bearer " + token;
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': "*",
+      'Accept': "application/json",
+      "Authorization": AuthUser,
+    }
+  }
 
   const router = useRouter()
-  const requireNoAuth = ['/', '/login', '/signup', '/forgot-password']
+  const requireNoAuth = ['/', '/login', '/signup', '/forgot-password', '/welcome']
+
+  // Fetching Unapproved Admins
+  const pendingAdminsAPI = "/v1/admin/users/admins/pending"
+  useEffect(() => {
+    Axios.get(pendingAdminsAPI, config).then((response) => {
+      console.log("pending", response.data.data)
+      setPendingAdmins(response.data.data.data);
+    });
+  }, [])
+
+  // Fetching UnapprovedDrivers
+  const pendingDriversAPI = "/v1/admin/users/drivers/pending"
+  useEffect(() => {
+    Axios.get(pendingDriversAPI, config).then((response) => {
+      console.log("pending", response.data.data)
+      setPendingDrivers(response.data.data.data);
+    });
+  }, [])
+
 
   const contextProvider = {
     userPhone,
@@ -62,6 +90,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     pendingAdmins,
     setPendingAdmins
   }
+
+
 
   return (
     <>

@@ -47,7 +47,7 @@ const ListDrivers = () => {
                 <div className="col-md-12 col-lg-12">
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">Riders</h3>
+                            <h3 className="card-title">Drivers</h3>
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
@@ -71,9 +71,9 @@ const ListDrivers = () => {
                                                 <td>{drivers.lastname}</td>
                                                 <td>{drivers.email}</td>
                                                 <td>{drivers.phone} </td>
-                                                <td><button
+                                                <td><a
                                                     onClick={() => { router.replace(`/admin/view-driver/${drivers.id}`) }}
-                                                    className='btn btn-primary button-icon mr-3 mt-1 mb-1'>View More</button></td>
+                                                    className='btn btn-primary button-icon mr-3 mt-1 mb-1' target={"_blank"}>View More</a></td>
                                             </tr>
                                         ))}
 

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import DashboardLayout from '../layouts/Dashboard'
+import DashboardLayout from '../../layouts/Dashboard'
 import { useRouter } from 'next/router'
-import AppContext from '../context/AppContext'
-import Axios from '../context/Axios'
+import AppContext from '../../context/AppContext'
+import Axios from '../../context/Axios'
 import Link from 'next/link'
 
 const ViewDriver = () => {
@@ -19,15 +19,7 @@ const ViewDriver = () => {
             "Authorization": AuthUser,
         }
     }
-    const pendingDriversAPI = "/v1/admin/users/drivers/pending"
 
-    // Fetching UnapprovedDrivers
-    useEffect(() => {
-        Axios.get(pendingDriversAPI, config).then((response) => {
-            console.log("pending", response.data.data)
-            setPendingDrivers(response.data.data.data);
-        });
-    }, [])
 
     const handleApprove = () => {
 
@@ -39,12 +31,14 @@ const ViewDriver = () => {
                 </div>
                 <div>
                     {pendingDrivers.map((driver, index) => (
-                        <div className="col-md-12 col-xl-4">
+                        <div className="col-md-12 col-xl-4" key={index}>
                             <div className="card ">
                                 <div className="card-header ">
                                     <h3 className="card-title ">Unapproved Driver</h3>
                                     <div className="card-options">
-                                        <button className='btn btn-success button-icon ml-3 mt-1 mb-1' onClick={handleApprove}>
+                                        <button className='btn btn-success button-icon ml-3 mt-1 mb-1' onClick={() => {
+                                            router.replace(`/pending-drivers/${driver.id}`)
+                                        }}>
                                             Approve
                                         </button>
                                     </div>
@@ -56,38 +50,36 @@ const ViewDriver = () => {
 
                                 </div>
                                 <div className="card-footer text-left">
-                                    <div className="row user-social-detail">
-                                        <div className="col-12">
+                                    <div className="row">
+                                        <div className="col-6 mb-6">
                                             Licence:
-                                            {/* ${driver.driver_license.file} */}
-                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
-                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
-                                            </Link>
+                                            {driver.driver_license.file ? <Link href={`http://itaxi.dap.ng/v1/storage/${driver.driver_license.file}`} >
+                                                <a className='btn btn-primary float-right'>View </a>
+                                            </Link> : " Not provided"}
+
 
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-6 mb-6">
                                             Insurance:
-                                            {/* ${driver.insurance.file} */}
-                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
-                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
-                                            </Link>
+                                            {driver.insurance.file ? <Link href={`http://itaxi.dap.ng/v1/storage/{driver.insurance.file}`} >
+                                                <a className='btn btn-primary float-right'>View </a>
+                                            </Link> : "Not provided"}
+
 
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-6 mb-6">
                                             Permit:
-                                            {/* ${driver.permit.file} */}
-                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
-                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
-                                            </Link>
+                                            {driver.permit.file ? <Link href={`http://itaxi.dap.ng/v1/storage/${driver.permit.file}`} >
+                                                <a className='btn btn-primary float-right'>View </a>
+                                            </Link> : "Not Provided"}
+
 
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-6 mb-6">
                                             Vehicle Registration:
-                                            {/* ${driver.vehicle_registration.file} */}
-                                            <Link href={`http://itaxi.dap.ng/v1/storage/`} >
-                                                <a className='btn btn-primary button-icon ml-3 mt-1 mb-1'>View </a>
-                                            </Link>
-
+                                            {driver.vehicle_registration.file ? <Link href={`http://itaxi.dap.ng/v1/storage/${driver.vehicle_registration.file}`} >
+                                                <a className='btn btn-primary float-right'>View </a>
+                                            </Link> : "Not provided"}
                                         </div>
 
                                     </div>
