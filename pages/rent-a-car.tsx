@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../layouts/Dashboard'
-import CurrencyInput from 'react-currency-input-field';
 import Image from '../components/Image'
 import Year from "../components/YearPicker"
 import TimeSelect from "../components/TimePicker"
@@ -84,15 +83,10 @@ const CarRent = () => {
             if (response.data.status === true) {
                 setAlert(true)
                 setAlertMessage(response.data.message)
-                console.log(response.data)
-
             } else {
-                console.log(response.data.message);
                 setError(true)
                 setAlertMessage("Invalid credentials")
             }
-            console.log(response);
-
         } catch (err: any) {
             console.log(err)
             setError(true)

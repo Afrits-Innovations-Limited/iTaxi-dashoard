@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import Image from "../components/Image"
+import React, { useContext, useEffect, useState } from 'react'
 import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
 import { InfoAlert, WarningAlert } from './Alert'
 import 'react-image-upload/dist/index.css'
-import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
-import { findCar } from '../store/carSlice'
+import { useAppSelector } from '../hooks/reducerHooks'
 
 
 const UpdateCarMake = ({ id }) => {
