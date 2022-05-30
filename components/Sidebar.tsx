@@ -3,13 +3,14 @@ import Link from "next/link";
 import Image from 'next/image';
 import { useRouter } from "next/router";
 import Navbar from './Navbar';
-import AppContext from '../context/AppContext';
-import { user } from '../data/mockdata'
+import { useAppSelector } from '../hooks/reducerHooks';
 
 const Sidebar = () => {
 
     const router = useRouter();
-    const { toggle, setToggle, admin } = useContext(AppContext)
+
+    const toggle = useAppSelector(state => state.toggle.toggle)
+    const admin = useAppSelector(state => state.admin.user)
     const [openSideMenu, setOpenSideMenu] = useState(true)
     const [visibleList, setVisibleList] = useState(false)
     const [visibleList_2, setVisibleList_2] = useState(false)

@@ -1,11 +1,17 @@
 import React, { useState, useContext } from 'react'
-import Image from 'next/image'
-import AppContext from '../context/AppContext'
 import Link from 'next/link'
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
+import { setProfileToggle, setToggle } from '../store/toggleSlice'
 
 const Navbar = () => {
 
-    const { toggle, setToggle, setProfileToggle } = useContext(AppContext)
+
+
+    const toggle = useAppSelector(state => state.toggle.toggle)
+    const user = useAppSelector(state => state.admin.user)
+    const profileToggle = useAppSelector(state => state.toggle.profileToggle)
+    const dispatch = useAppDispatch()
+
     const [profiledpd, setProfileDPD] = useState(false)
     const [inboxdpd, setInboxDPD] = useState(false)
     const [notificationdpd, setNotificationDPD] = useState(false)
@@ -28,7 +34,7 @@ const Navbar = () => {
                         </a>
                     </Link>
                 </div>
-                <div className={`app-sidebar__toggle ${toggle && 'sidenav-toggled'}`} onClick={() => setToggle(!toggle)}>
+                <div className={`app-sidebar__toggle ${toggle && 'sidenav-toggled'}`} onClick={() => dispatch(setToggle(!toggle))}>
                     {!toggle ? (<span className="open-toggle"><i className="fe fe-align-left"></i></span>) : (<span className="close-toggle"><i className="fe fe-x"></i></span>)}
                 </div>
                 <div className="d-flex  ml-auto header-right-icons">
@@ -40,7 +46,8 @@ const Navbar = () => {
                             inboxdpd && setInboxDPD(false)
                         }}>
                             <i className="fe fe-bell"></i>
-                            <span className="nav-unread badge badge-success badge-pill">2</span>
+                            {/* Badge Number */}
+                            {/* <span className="nav-unread badge badge-success badge-pill">{""}</span> */}
                         </a>
                         {/* Notification Dropdown*/}
                         <div className={`dropdown-menu dropdown-menu-right dropdown-menu-arrow ${notificationdpd && 'show'}`}>
@@ -48,6 +55,14 @@ const Navbar = () => {
                             <div className="dropdown-divider"></div>
                             <div className="notifications-menu">
                                 <a className="dropdown-item d-flex pb-3" href="#">
+                                    <div className="fs-16 text-primary mr-3">
+                                        {/* <i className="fa fa-thumbs-o-up"></i> */}
+                                    </div>
+                                    <div className="">
+                                        <strong>No new Notification</strong>
+                                    </div>
+                                </a>
+                                {/* <a className="dropdown-item d-flex pb-3" href="#">
                                     <div className="fs-16 text-primary mr-3">
                                         <i className="fa fa-thumbs-o-up"></i>
                                     </div>
@@ -70,7 +85,7 @@ const Navbar = () => {
                                     <div className="">
                                         <strong>Your Admin Launch</strong>
                                     </div>
-                                </a>
+                                </a> */}
                             </div>
                             <div className="dropdown-divider"></div>
                             <a href="#" className="dropdown-item text-center">View all Notification</a>
@@ -80,12 +95,16 @@ const Navbar = () => {
                     <div className="dropdown d-md-flex message">
                         <a className="nav-link icon text-center" data-toggle="dropdown" onClick={() => { setInboxDPD(!inboxdpd); profiledpd && setProfileDPD(false); notificationdpd && setNotificationDPD(false) }}>
                             <i className="fe fe-mail"></i>
-                            <span className="nav-unread badge badge-danger badge-pill">3</span>
+                            {/* Badge Number */}
+                            {/* <span className="nav-unread badge badge-danger badge-pill">{""}</span> */}
                         </a>
                         {/* Inbox Dropdown */}
                         <div className={`dropdown-menu dropdown-menu-right dropdown-menu-arrow ${inboxdpd && 'show'}`}>
                             <div className="message-menu">
                                 <a className="dropdown-item d-flex pb-3" href="#">
+                                    Empty
+                                </a>
+                                {/* <a className="dropdown-item d-flex pb-3" href="#">
                                     <span className="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="../../assets/images/users/1.jpg"></span>
                                     <div>
                                         <strong>Madeleine</strong> Hey! there I' am available....
@@ -120,7 +139,7 @@ const Navbar = () => {
                                             2 days ago
                                         </div>
                                     </div>
-                                </a>
+                                </a> */}
                             </div>
                             <div className="dropdown-divider"></div>
                             <a href="#" className="dropdown-item text-center">See all Messages</a>
@@ -137,7 +156,7 @@ const Navbar = () => {
                         <div className={`dropdown-menu dropdown-menu-right dropdown-menu-arrow ${profiledpd && 'show'}`} >
                             <div className="drop-heading">
                                 <div className="text-center">
-                                    <h5 className="text-dark mb-0">Devid Antoni</h5>
+                                    <h5 className="text-dark mb-0">{user.firstname} {user.lastname}</h5>
                                     <small className="text-muted">Administrator</small>
                                 </div>
                             </div>
@@ -145,7 +164,7 @@ const Navbar = () => {
                             <a className="dropdown-item" href="#">
                                 <i className="dropdown-icon mdi mdi-account-outline"></i> Profile
                             </a>
-                            <a className="dropdown-item" href="#" onClick={() => setProfileToggle(true)}>
+                            <a className="dropdown-item" href="#" onClick={() => dispatch(setToggle(!toggle))}>
                                 <i className="dropdown-icon  mdi mdi-settings"></i> Settings
                             </a>
                             <a className="dropdown-item" href="#">
@@ -166,7 +185,7 @@ const Navbar = () => {
                     </div>
                     {/* Profile Setting */}
                     <div className="dropdown d-md-flex header-settings" onClick={() => {
-                        setProfileToggle(true);
+                        dispatch(setProfileToggle(!profileToggle));
                         setNotificationDPD(false); setInboxDPD(false); setProfileDPD(false)
                     }}>
                         <span className="nav-link icon">

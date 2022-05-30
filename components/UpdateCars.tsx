@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../layouts/Dashboard'
-import CurrencyInput from 'react-currency-input-field';
 import Image from '../components/Image'
 import Year from "../components/YearPicker"
 import TimeSelect from "../components/TimePicker"
@@ -9,31 +8,34 @@ import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import Axios from '../context/Axios';
 import { InfoAlert, WarningAlert } from './Alert';
+import { useAppSelector } from '../hooks/reducerHooks';
 
 
 const UpdateCars = ({ id }) => {
-    const { token, carsForRent } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
+    const { carsForRent } = useContext(AppContext)
     const carToUpdate = carsForRent.find(carId => carId.id == id)
+    console.log(carToUpdate)
     const [picture, setPicture] = useState("")
     const [year, setYear] = useState("")
     const [open_day, setOpenDay] = useState("")
     const [close_day, setCloseDay] = useState("")
     const [open_time, setOpenTime] = useState("")
     const [close_time, setCloseTime] = useState("")
-    const [price, setPrice] = useState(carToUpdate.price)
-    const [name, setName] = useState(carToUpdate.name)
-    const [car_make_id, setCarMake] = useState(carToUpdate.car_make_id)
-    const [model, setModel] = useState(carToUpdate.model)
-    const [interior, setInterior] = useState(carToUpdate.interior)
-    const [engine, setEngine] = useState(carToUpdate.engine)
-    const [seat, setSeat] = useState(carToUpdate.seats)
-    const [speed, setSpeed] = useState(carToUpdate.speed)
-    const [transmission, setTransmission] = useState(carToUpdate.transmission)
-    const [luggage, setLuggage] = useState(carToUpdate.luggage)
-    const [availability, setAvailabilty] = useState(carToUpdate.availability)
-    const [address, setAddress] = useState(carToUpdate.address)
-    const [brand, setBrand] = useState(carToUpdate.brand)
-    const [phone, setPhone] = useState(carToUpdate.phone)
+    const [price, setPrice] = useState(carToUpdate?.price)
+    const [name, setName] = useState(carToUpdate?.name)
+    const [car_make_id, setCarMake] = useState(carToUpdate?.car_make_id)
+    const [model, setModel] = useState(carToUpdate?.model)
+    const [interior, setInterior] = useState(carToUpdate?.interior)
+    const [engine, setEngine] = useState(carToUpdate?.engine)
+    const [seat, setSeat] = useState(carToUpdate?.seats)
+    const [speed, setSpeed] = useState(carToUpdate?.speed)
+    const [transmission, setTransmission] = useState(carToUpdate?.transmission)
+    const [luggage, setLuggage] = useState(carToUpdate?.luggage)
+    const [availability, setAvailabilty] = useState(carToUpdate?.availability)
+    const [address, setAddress] = useState(carToUpdate?.address)
+    const [brand, setBrand] = useState(carToUpdate?.brand)
+    const [phone, setPhone] = useState(carToUpdate?.phone)
     const [error, setError] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")

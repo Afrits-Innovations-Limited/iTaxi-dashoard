@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import DashboardLayout from '../../../layouts/Dashboard'
 import { useRouter } from 'next/router'
-import AppContext from '../../../context/AppContext'
 import Axios from '../../../context/Axios'
 import Link from 'next/link'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reducerHooks'
+import { createDriver } from '../../../store/userSlice'
+import Ratings from '../../../components/Ratings'
 
 const ViewDriver = () => {
 
     const router = useRouter()
-    const { token, data, setData } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
     const AuthUser = "Bearer " + token;
     const { did } = router.query
     const viewDriverAPI = `/v1/admin/users/view/${did}`
-
+    const dispatch = useAppDispatch()
+    const driver = useAppSelector(state => state.user.driver)
 
     const config = {
         headers: {
@@ -25,11 +28,12 @@ const ViewDriver = () => {
 
     useEffect(() => {
         Axios.get(viewDriverAPI, config).then((response) => {
-
-            console.log(response.data)
-            setData(response.data.data);
+            dispatch(createDriver(response.data.data))
+            console.log("driverfromapi", response.data)
         });
     }, [])
+
+    console.log("driverredux", driver)
     return (
         <>
             <DashboardLayout title={"iTaxi - Driver"} description={"car for hire"}>
@@ -42,26 +46,27 @@ const ViewDriver = () => {
                     <div className="col">
                         <div className="card ">
                             <div className="card-header ">
-                                <h3 className="card-title ">Driver </h3>
-                                {/* <div className="card-options">
-                                    <div><span className={`${data.driver.is_online === 0 ? "text-danger" : "text-success"} h4`}>{data.driver.approved_at === null ? "Offline" : "Online"}</span></div>
-                                </div> */}
+                                <h3 className="card-title "><Ratings value={driver.star} /> </h3>
+                                <div className="card-options">
+                                    <div><span className={`${driver.driver.is_online === 0 ? "text-danger" : "text-success"} h4`}>{driver.driver.approved_at === null ? "Offline" : "Online"}</span></div>
+                                </div>
                             </div>
                             <div className="card-body text-center">
-                                <h4 className="h4 mb-0 mt-3">{data.firstname} {data.lastname}</h4>
-                                <h4 className="h6 mb-0 mt-3">{data.email}</h4>
-                                <h4 className="h6 mb-0 mt-3">{data.phone}</h4>
+                                <h4 className="h4 mb-0 mt-3">{driver.firstname} {driver.lastname}</h4>
+                                <h4 className="h6 mb-0 mt-3">{driver.email}</h4>
+                                <h4 className="h6 mb-0 mt-3">{driver.phone}</h4>
                             </div>
-                            {/* <div className="card-footer text-center">
-                                <p className=''>Joined:  <span className="h6">{data.joined_date}</span></p>
-                                <p className='mt-3'>Car:  <span className="h6">{data.driver.car.brand ? data.drver.car.brand : " "} {data.driver.car.model}</span></p> 
-                               <p className=''>Plate Number: <span className="h6"> {data.driver.car.plate_number} </span></p>
-                                <p className=''>Insurance: <span className={`h6 ${!data.driver.insurance_id && "text-danger"}`}> {!data.driver.insurance_id ? "Not provided" : data.driver.insurance_id} </span></p>
-                                <p className=''>Licence: <span className={`h6 ${!data.driver.driver_licence_id && "text-danger"}`}> {!data.driver.driver_license_id ? "Not provided" : data.driver.driver_license_id} </span></p>
-                                <p className=''>Permit: <span className={`h6 ${!data.driver.permit_id && "text-danger"}`}> {!data.driver.permit_id ? "Not provided" : data.driver.permit_id} </span></p>
-                                <p className=''>Vehicle Registration: <span className={`h6 ${!data.driver.vehicle_registration_id && "text-danger"}`}> {!data.driver.vehicle_registration_id ? "Not provided" : data.driver.vehicle_registration_id} </span></p>
-                                <div>Status: <span className={` h6 ${data.driver.approved_at === null ? "text-danger" : "text-success"}`}>{data.driver.approved_at === null ? "Not Approved" : "Approved"}</span></div>
-                            </div> */}
+                            <div className="card-footer text-center">
+                                <p className=''>Joined:  <span className="h6">{driver?.joined_date}</span></p>
+                                <p className='mt-3'>Car:  <span className="h6">{driver.driver.car?.brand ? driver.driver.car.brand : " "} {driver.driver.car?.model}</span></p>
+                                <p className=''>Plate Number: <span className="h6"> {driver.driver.car?.plate_number} </span></p>
+                                <p className=''>Insurance Issued Date: <span className={`h6 ${!driver.driver.insurance_id && "text-danger"}`}> {!driver.driver.insurance_id ? "Not provided" : driver.driver.insurance.issued_on} </span></p>
+                                <p className=''>Licence: <span className={`h6 ${!driver.driver.driver_license_id && "text-danger"}`}> {!driver.driver.driver_license_id ? "Not provided" : driver.driver.driver_license_id} </span></p>
+                                <p className=''>Permit: <span className={`h6 ${!driver.driver.permit_id && "text-danger"}`}> {!driver.driver.permit_id ? "Not provided" : driver.driver.permit_id} </span></p>
+                                <p className=''>Vehicle Registration: <span className={`h6 ${!driver.driver.vehicle_registration_id && "text-danger"}`}> {!driver.driver.vehicle_registration_id ? "Not provided" : driver.driver.vehicle_registration_id} </span></p>
+                                <div>Status: <span className={` h6 ${driver.driver.approved_at === null ? "text-danger" : "text-success"}`}>{driver.driver.approved_at === null ? "Not Approved" : "Approved"}</span></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

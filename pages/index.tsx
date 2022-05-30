@@ -1,17 +1,32 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { parseCookies } from "../helpers";
+import { useAppSelector } from "../hooks/reducerHooks";
+import Axios from "../context/Axios";
 
 
 export const Index: NextPage = () => {
 
   const router = useRouter();
+  const token = useAppSelector(state => state.admin.token)
+
 
   useEffect(() => {
-    router.push("/login");
-  }, []);
+    if (token === null) {
+      router.push("/login")
+    } else {
+      router.push("/dashboard")
+    }
+  }, [])
 
-  return <div></div>;
+
+  return (
+
+    <div>Token : {token}</div>
+
+  )
 };
 
 export default Index;
+

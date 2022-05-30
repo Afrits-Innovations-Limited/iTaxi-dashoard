@@ -1,20 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Rating } from 'react-simple-star-rating'
 
-const Ratings = () => {
-
-    const [ratingValue, setRatingValue] = useState(0)
-
-    const handleRating = (rate: number) => {
-        setRatingValue(rate)
-    }
+const Ratings = ({ value }) => {
     return (
         <div className='rating-icons'>
+
             <Rating transition
-                onClick={handleRating}
-                ratingValue={ratingValue}
-                allowHover={false}
-            /></div>
+                initialValue={value} ratingValue={0} size={20} /></div>
     )
 }
 

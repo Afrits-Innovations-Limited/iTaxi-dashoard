@@ -2,10 +2,10 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
 import Image from "../components/Image"
-import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
 import { InfoAlert, WarningAlert } from './Alert'
 import 'react-image-upload/dist/index.css'
+import { useAppSelector } from '../hooks/reducerHooks'
 
 
 
@@ -16,7 +16,7 @@ type FileInput = {
 const CreateCarMake = () => {
 
     const router = useRouter()
-    const { token } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
     const [description, setDescription] = useState("")
     const [name, setName] = useState("")
     const [picture, setPicture] = useState()

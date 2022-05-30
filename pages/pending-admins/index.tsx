@@ -4,11 +4,13 @@ import { useRouter } from 'next/router'
 import AppContext from '../../context/AppContext'
 import Axios from '../../context/Axios'
 import { InfoAlert } from '../../components/Alert'
+import { useAppSelector } from '../../hooks/reducerHooks'
 
 const PendingAdmins = () => {
 
     const router = useRouter()
-    const { pendingAdmins } = useContext(AppContext)
+    // const { pendingAdmins } = useContext(AppContext)
+    const pendingAdmins = useAppSelector(state => state.user.pendingAdmins)
     // const [alert, setAlert] = useState(false)
     // const [alertMessage, setAlertMessage] = useState("")
 

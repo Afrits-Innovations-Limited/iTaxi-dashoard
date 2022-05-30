@@ -3,11 +3,13 @@ import Axios from '../context/Axios';
 import DashboardLayout from "../layouts/Dashboard"
 import AppContext from '../context/AppContext';
 import Ratings from '../components/Ratings';
+import { useAppSelector } from '../hooks/reducerHooks';
 
 
 const Cars = () => {
     const getCarsAPI = "/v1/admin/cars/rent"
-    const { token, availableCars, setAvailableCars } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
+    const { availableCars, setAvailableCars } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const config = {
         headers: {
@@ -20,8 +22,6 @@ const Cars = () => {
 
     useEffect(() => {
         Axios.get(getCarsAPI, config).then((response) => {
-
-            console.log(response.data.data)
             setAvailableCars(response.data.data);
         });
     }, []);
@@ -33,8 +33,8 @@ const Cars = () => {
             <div className="row row-cards">
                 <div className="col-xl-9 col-lg-8">
                     <div className="row">
-                        {availableCars.map((car) => (
-                            <div className="col-md-6 col-xl-4">
+                        {availableCars.map((car, index) => (
+                            <div className="col-md-6 col-xl-4" key={index}>
                                 <div className="card item-card">
                                     <div className="product-grid6  card-body">
                                         <div className="product-image6">

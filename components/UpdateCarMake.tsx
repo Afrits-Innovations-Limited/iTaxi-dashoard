@@ -6,15 +6,22 @@ import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
 import { InfoAlert, WarningAlert } from './Alert'
 import 'react-image-upload/dist/index.css'
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
+import { findCar } from '../store/carSlice'
 
 
 const UpdateCarMake = ({ id }) => {
 
     const router = useRouter()
-    const { token, cars } = useContext(AppContext)
-    const carToUpdate = cars.find(carId => carId.id == id)
-    const [description, setDescription] = useState(carToUpdate.description)
-    const [name, setName] = useState(carToUpdate.name)
+    // const dispatch = useAppDispatch()
+    const token = useAppSelector(state => state.admin.token)
+    // const cars = useAppSelector(state => state.currentCar.currentCar)
+    const { cars } = useContext(AppContext)
+    const carToUpdate = cars.findCar(carId => carId.id == id)
+    // const carToUpdate = JSON.parse(cars)
+
+    const [description, setDescription] = useState(carToUpdate?.id)
+    const [name, setName] = useState(carToUpdate?.name)
     // const [ImageFiles, setImageFile] = useState()
     const [picture, setPicture] = useState("")
     const [alert, setAlert] = useState(false)
@@ -132,3 +139,4 @@ const UpdateCarMake = ({ id }) => {
 }
 
 export default UpdateCarMake
+

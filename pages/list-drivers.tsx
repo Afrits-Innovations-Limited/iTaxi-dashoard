@@ -2,21 +2,21 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react'
 import AppContext from '../context/AppContext';
 import Axios from '../context/Axios';
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks';
 import DashboardLayout from '../layouts/Dashboard'
+import { createDriversList } from '../store/userSlice';
 
 const ListDrivers = () => {
 
-    const { token, } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
     const AuthUser = "Bearer " + token;
-    const [list, setList] = useState([])
     const [lastname, setLastName] = useState("")
     const [firstname, setFirstName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
+    const driversList = useAppSelector(state => state.user.driversList)
 
     const router = useRouter()
-
-
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -25,20 +25,16 @@ const ListDrivers = () => {
             "Authorization": AuthUser,
         }
     }
+    const dispatch = useAppDispatch()
 
     const getList = `/v1/admin/users/list?${lastname}&${firstname}&${email}&${phone}&type=driver`
 
     // Fetching Drivers
     useEffect(() => {
         Axios.get(getList, config).then((response) => {
-
-            console.log(response.data.data)
-            setList(response.data.data.data);
-            console.log(response.data.data.data);
-
+            dispatch(createDriversList(response.data.data.data))
         });
     }, [])
-
 
     return (
         <DashboardLayout title='iTaxi - Drivers' description='cars for rent'>
@@ -64,7 +60,7 @@ const ListDrivers = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {list.map((drivers, index) => (
+                                        {driversList.map((drivers, index) => (
                                             <tr key={index}>
                                                 <th scope="row">{index + 1} </th>
                                                 <td>{drivers.firstname}</td>

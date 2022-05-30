@@ -4,11 +4,14 @@ import { useRouter } from 'next/router'
 import AppContext from '../../context/AppContext'
 import Axios from '../../context/Axios'
 import Link from 'next/link'
+import { useAppSelector } from '../../hooks/reducerHooks'
 
 const ViewDriver = () => {
 
     const router = useRouter()
-    const { token, setPendingDrivers, pendingDrivers } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
+    const pendingDriver = useAppSelector(state => state.user.pendingDrivers)
+    const { setPendingDrivers, pendingDrivers } = useContext(AppContext)
     const AuthUser = "Bearer " + token;
     const { did } = router.query
     const config = {
@@ -19,18 +22,13 @@ const ViewDriver = () => {
             "Authorization": AuthUser,
         }
     }
-
-
-    const handleApprove = () => {
-
-    }
     return (
         <>
             <DashboardLayout title={"iTaxi - Pending Drivers"} description={"car for hire"}>
                 <div className="page-header">
                 </div>
                 <div>
-                    {pendingDrivers.map((driver, index) => (
+                    {pendingDriver.map((driver, index) => (
                         <div className="col-md-12 col-xl-4" key={index}>
                             <div className="card ">
                                 <div className="card-header ">

@@ -1,15 +1,18 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import ReactTimeAgo from "react-time-ago";
+import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
+import { useCookies } from "react-cookie"
 import { ErrorAlert, InfoAlert, SuccessAlert } from "../components/Alert";
 import PageHead from "../components/Head";
 import AppContext from "../context/AppContext";
 import Axios, { config } from "../context/Axios";
+import { create, setAuth } from "../store/adminSlice";
 
 const Login: NextPage = () => {
 
     const router = useRouter()
+    const [cookie, setCookie] = useCookies(["token"])
     const [phone, setPhone] = useState("")
     const [otp, setOtp] = useState("")
     const [account, setAccount] = useState("admin")
@@ -20,12 +23,14 @@ const Login: NextPage = () => {
     const [success, setSuccess] = useState(false)
     const [info, setInfo] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
-
     const VerifyAPI = "/v1/rider/login/phone/verify"
     const LoginAPI = "/v1/rider/login/phone"
 
+    // Redux
+    const dispatch = useAppDispatch()
+    const auth = useAppSelector(state => state.admin.auth)
 
-    const { setAdmin, setAuth, setToken, setUserPhone } = useContext(AppContext)
+    // const { setAdmin, setAuth, setToken, setUserPhone } = useContext(AppContext)
 
     useEffect(() => {
         setTimeout(() => {
@@ -47,7 +52,7 @@ const Login: NextPage = () => {
             account_type: "admin"
         }
 
-        setUserPhone(phone)
+        setPhone(phone)
         try {
             const response = await Axios.post(LoginAPI, data, config);
             console.log(response);
@@ -84,17 +89,32 @@ const Login: NextPage = () => {
             const response = await Axios.post(VerifyAPI, data, config);
             if (response.data.status === true) {
                 if (response.data.data.token === null) {
-                    setAuth(true)
+                    dispatch(setAuth(true))
                     router.push('/profile-setup')
                 } else if (response.data.data.user.admin.approved_at) {
-                    setAuth(true)
-                    setToken(response.data.data.token)
-                    console.log(response.data.data.user);
-                    setAdmin(response.data.data.user)
+                    dispatch(setAuth(true))
+                    const {
+                        id,
+                        firstname,
+                        lastname,
+                        account_type
+
+                    } = response.data.data.user
+                    dispatch(create({
+                        user: {
+                            id,
+                            firstname,
+                            lastname,
+                            account_type
+                        },
+                        token: response.data.data.token
+                    }))
+                    const userToken = response.data.data.token
+                    localStorage.setItem("token", userToken)
                     router.push('/dashboard')
 
                 } else {
-                    setAuth(true)
+                    // setAuth(true)
                     router.push('/welcome')
                 }
             } else {
