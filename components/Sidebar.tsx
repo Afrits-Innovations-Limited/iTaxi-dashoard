@@ -59,11 +59,7 @@ const Sidebar = () => {
                                     <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Cars</a>
                                 </Link>
                             </li>
-                            <li>
-                                <Link href={"/trip-feed"}>
-                                    <a className="slide-item"><i className="sidemenu-icon fe fe-chevrons-right"></i> Trip Feed</a>
-                                </Link>
-                            </li>
+
                         </ul>
                     </li>
                     {/* <li><h3>Drivers &amp; Customers</h3></li> */}

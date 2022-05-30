@@ -3,26 +3,33 @@ import { createSlice } from "@reduxjs/toolkit";
 interface CardState {
     serviceType: string,
     revenue: {
-        driver_amount: 0,
-        amount: 0,
-        total: 0,
-        duration: 0,
+        driver_amount: number,
+        amount: number,
+        total: number,
+        duration: number,
         revenue?: number
     },
     lastWeekRevenue: {
-        driver_amount: 0,
-        amount: 0,
-        total: 0,
-        duration: 0,
+        driver_amount: number,
+        amount: number,
+        total: number,
+        duration: number,
         revenue?: number
     },
     thisWeekRevenue: {
-        driver_amount: 0,
-        amount: 0,
-        total: 0,
-        duration: 0,
+        driver_amount: number,
+        amount: number,
+        total: number,
+        duration: number,
         revenue?: number
     },
+    commission: {
+        amount: number
+        commission: number
+        driver_amount: number
+        duration: string
+        total: number
+    }
     cancelledRequests: string,
     fleets: string,
     cancelledTrips: string,
@@ -52,6 +59,7 @@ const initialState: CardState = {
         duration: 0,
         revenue: 0
     },
+    commission: null,
     cancelledRequests: null,
     fleets: null,
     cancelledTrips: null,
@@ -81,6 +89,9 @@ export const cardSlice = createSlice({
         setServiceType: (state, action) => {
             state.serviceType = action.payload
         },
+        getCommision: (state, { payload }) => {
+            state.commission = payload
+        },
         getCancelledRequests: (state, action) => {
             state.cancelledRequests = action.payload
         },
@@ -96,5 +107,5 @@ export const cardSlice = createSlice({
     }
 })
 
-export const { createRevenue, setServiceType, getCancelledRequests, getFleets, getCancelledTrips, driverCancelledTrips, getRevenueToday, getRevenueThisWeek, getRevenueLastWeek } = cardSlice.actions
+export const { createRevenue, setServiceType, getCancelledRequests, getCommision, getFleets, getCancelledTrips, driverCancelledTrips, getRevenueToday, getRevenueThisWeek, getRevenueLastWeek } = cardSlice.actions
 export default cardSlice.reducer

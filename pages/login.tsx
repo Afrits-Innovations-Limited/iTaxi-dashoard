@@ -93,20 +93,8 @@ const Login: NextPage = () => {
                     router.push('/profile-setup')
                 } else if (response.data.data.user.admin.approved_at) {
                     dispatch(setAuth(true))
-                    const {
-                        id,
-                        firstname,
-                        lastname,
-                        account_type
-
-                    } = response.data.data.user
                     dispatch(create({
-                        user: {
-                            id,
-                            firstname,
-                            lastname,
-                            account_type
-                        },
+                        user: response.data.data.user,
                         token: response.data.data.token
                     }))
                     const userToken = response.data.data.token

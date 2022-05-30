@@ -8,7 +8,7 @@ import Axios from "../context/Axios";
 import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
 import { useRouter } from "next/router";
 import { createDriver, createPendingAdmins, createPendingDrivers, createRider, getPendingAdmins, getPendingDrivers, readCount } from "../store/userSlice";
-import { createRevenue, driverCancelledTrips, getCancelledRequests, getCancelledTrips, getFleets, getRevenueLastWeek, getRevenueThisWeek, setServiceType, } from "../store/cardSlice";
+import { createRevenue, driverCancelledTrips, getCancelledRequests, getCancelledTrips, getCommision, getFleets, getRevenueLastWeek, getRevenueThisWeek, setServiceType, } from "../store/cardSlice";
 
 const Dashboard: NextPage = () => {
     const router = useRouter()
@@ -27,7 +27,12 @@ const Dashboard: NextPage = () => {
     const driverCancelled = useAppSelector(state => state.card.driverCancelled)
     const lastWeek = useAppSelector(state => state.card.lastWeekRevenue)
     const thisWeek = useAppSelector(state => state.card.thisWeekRevenue)
+    const commission = useAppSelector(state => state.card.commission)
 
+    // const date = new Date().getUTCDate()
+    let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
+    const todaysDate = `${year}-${month}-${date}`
+    const startDate = admin.joined_date
     const dispatch = useAppDispatch()
     const AuthUser = "Bearer " + token;
     const config = {
@@ -137,7 +142,17 @@ const Dashboard: NextPage = () => {
         Axios.get("/v1/admin/earning/last-week", config).then((res) => {
             dispatch(getRevenueLastWeek(res.data.data.summary))
         })
+        // Axios.get(`/v1/admin/earning/bydate?from=${startDate}&to=${todaysDate}`, config).then((res) => {
+        //     // console.log("by date", res.data.data)
+        //     // dispatch(getRevenueLastWeek(res.data.data.summary))
+        // })
+        Axios.get(`/v1/admin/earning/overall`, config).then((res) => {
+            console.log("allcommission", res.data.data.summary)
+            dispatch(getCommision(res.data.data.summary))
+            // dispatch(getRevenueLastWeek(res.data.data.summary))
+        })
     }, [])
+
 
     return (
         <DashboardLayout title={"iTaxi"} description={"Home page"}>
@@ -153,6 +168,28 @@ const Dashboard: NextPage = () => {
                 </div>
             </div>
             <div className="row">
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-order">
+                                <h6 className="mb-2">Total No. of Rides</h6>
+                                <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-success text-success-shadow"></i><span>{commission.total}</span></h2>
+                                <p className="mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-order">
+                                <h6 className="mb-2">Commission</h6>
+                                <h2 className="text-right "><i className="zmdi zmdi-money icon-size float-left text-success text-success-shadow"></i><span><del>N</del>{" "}{commission.commission}</span></h2>
+                                <p className="mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
