@@ -59,7 +59,14 @@ const initialState: CardState = {
         duration: 0,
         revenue: 0
     },
-    commission: null,
+    commission: {
+        total: 0,
+        driver_amount: 0,
+        amount: 0,
+        commission: 0,
+        duration: ''
+
+    },
     cancelledRequests: null,
     fleets: null,
     cancelledTrips: null,
