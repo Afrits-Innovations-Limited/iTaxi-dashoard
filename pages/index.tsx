@@ -23,7 +23,7 @@ export const Index: NextPage = () => {
 
   return (
 
-    <div>Token : {token}</div>
+    <div>iTaxi</div>
 
   )
 };
