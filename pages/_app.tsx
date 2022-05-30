@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <CookiesProvider>
         <Provider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate persistor={persistor} loading={null}>
             <AppContext.Provider value={contextProvider} >
               {requireNoAuth.includes(router.pathname) ? (
                 <Component {...pageProps} />

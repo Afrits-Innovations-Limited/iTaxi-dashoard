@@ -74,7 +74,8 @@ export const adminSlice = createSlice({
             }
             state.token = "",
                 localStorage.clear()
-        }
+        },
+
     }
 })
 

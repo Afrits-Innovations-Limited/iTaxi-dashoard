@@ -1,6 +1,9 @@
 import { NextPage } from "next";
 import DashboardLayout from "../layouts/Dashboard";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../context/AppContext";
+import { parseCookies } from "../helpers/"
+import Link from "next/link";
 import Axios from "../context/Axios";
 import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
 import { useRouter } from "next/router";
@@ -144,9 +147,8 @@ const Dashboard: NextPage = () => {
         //     // dispatch(getRevenueLastWeek(res.data.data.summary))
         // })
         Axios.get(`/v1/admin/earning/overall`, config).then((res) => {
-            console.log("allcommission", res.data.data.summary)
+
             dispatch(getCommision(res.data.data.summary))
-            // dispatch(getRevenueLastWeek(res.data.data.summary))
         })
     }, [])
 
@@ -165,7 +167,7 @@ const Dashboard: NextPage = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                {/* <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
                             <div className="card-order">
@@ -175,7 +177,7 @@ const Dashboard: NextPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
