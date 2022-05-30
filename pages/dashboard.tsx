@@ -1,9 +1,6 @@
 import { NextPage } from "next";
 import DashboardLayout from "../layouts/Dashboard";
-import { useContext, useEffect, useState } from "react";
-import AppContext from "../context/AppContext";
-import { parseCookies } from "../helpers/"
-import Link from "next/link";
+import { useEffect } from "react";
 import Axios from "../context/Axios";
 import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
 import { useRouter } from "next/router";
