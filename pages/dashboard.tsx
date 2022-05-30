@@ -192,6 +192,17 @@ const Dashboard: NextPage = () => {
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
+                            <div className="card-widget">
+                                <span className="text-left font-weight-bold mb-2">Revenue</span>
+                                <span className="float-right font-weight-bold mb-2">All Time</span>
+                                <h2 className="text-right mt-3"><i className="icon-size zmdi zmdi-money-box  float-left text-primary text-primary-shadow"></i><span><del>N</del>{" "} {commission.amount}</span></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div className="card">
+                        <div className="card-body">
                             <div className="card-order">
                                 <h6 className="mb-2">Drivers</h6>
                                 <h2 className="text-right "><i className="zmdi zmdi-car-taxi icon-size float-left text-success text-success-shadow"></i><span>{user.driverCount}</span></h2>
@@ -338,7 +349,6 @@ const Dashboard: NextPage = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </DashboardLayout>
 
