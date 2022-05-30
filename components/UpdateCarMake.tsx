@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import AppContext from '../context/AppContext'
 import Axios from '../context/Axios'
 import { InfoAlert, WarningAlert } from './Alert'
-import 'react-image-upload/dist/index.css'
 import { useAppSelector } from '../hooks/reducerHooks'
 
 
