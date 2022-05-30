@@ -167,7 +167,7 @@ const Dashboard: NextPage = () => {
                 </div>
             </div>
             <div className="row">
-                {/* <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
                             <div className="card-order">
@@ -177,8 +177,8 @@ const Dashboard: NextPage = () => {
                             </div>
                         </div>
                     </div>
-                </div> */}
-                {/* <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                </div>
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
                             <div className="card-order">
@@ -188,7 +188,7 @@ const Dashboard: NextPage = () => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div className="card">
                         <div className="card-body">
