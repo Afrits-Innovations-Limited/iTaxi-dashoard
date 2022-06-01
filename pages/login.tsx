@@ -54,8 +54,6 @@ const Login: NextPage = () => {
         }
         try {
             const response = await Axios.post(LoginAPI, data, config);
-            console.log(response);
-            console.log(phone)
 
             if (response.data.status === true) {
                 setAdminPhone(phone)
@@ -66,7 +64,7 @@ const Login: NextPage = () => {
             } else {
                 console.log(response.data.message);
                 setError(true)
-                setAlertMessage("Invalid credentials")
+                setAlertMessage(response.data.message)
             }
         } catch (err: any) {
             console.log(err)
@@ -88,8 +86,6 @@ const Login: NextPage = () => {
 
         try {
             const response = await Axios.post(VerifyAPI, data, config);
-            console.log(response.data.data)
-            console.log("state Phone", adminPhone)
             if (response.data.status === true) {
                 if (response.data.data.token === null) {
                     setAdminPhone(response.data.data.phone)
@@ -125,7 +121,6 @@ const Login: NextPage = () => {
             setError(true)
             setAlertMessage(err.message)
         }
-        console.log("afterVer", adminPhone)
     }
 
     return (

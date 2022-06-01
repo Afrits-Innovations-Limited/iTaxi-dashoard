@@ -50,7 +50,7 @@ const ProfileSetup = () => {
             } else {
                 console.log(response.data.message);
                 setError(true)
-                setAlertMessage("Invalid credentials")
+                setAlertMessage(response.data.message)
             }
         } catch (err: any) {
             console.log(err)
