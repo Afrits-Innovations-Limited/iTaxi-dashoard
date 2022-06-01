@@ -25,11 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [carsForRent, setCarsForRent] = useState([])
   const [cars, setCars] = useState([])
   const [availableCars, setAvailableCars] = useState([])
-
+  const [adminPhone, setAdminPhone] = useState("")
   const requireNoAuth = ['/', '/login', '/signup', '/forgot-password', '/welcome']
 
   const contextProvider = {
-    cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent,
+    cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent, adminPhone, setAdminPhone
   }
 
   const router = useRouter()

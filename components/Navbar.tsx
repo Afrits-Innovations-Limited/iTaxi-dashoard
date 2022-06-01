@@ -4,9 +4,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
 import { setProfileToggle, setToggle } from '../store/toggleSlice'
 
 const Navbar = () => {
-
-
-
     const toggle = useAppSelector(state => state.toggle.toggle)
     const user = useAppSelector(state => state.admin.user)
     const profileToggle = useAppSelector(state => state.toggle.profileToggle)
@@ -197,10 +194,10 @@ const Navbar = () => {
 
 
             {/* On Mpbile toggle */}
-            <div className="mobile-header">
+            <div className={`mobile-header`}>
                 <div className="container-fluid">
-                    <div className="d-flex">
-                        <div className={`app-sidebar__toggle ${toggle && 'sidenav-toggled'}`}>
+                    <div className={`d-flex`}>
+                        <div className={`app-sidebar__toggle`}>
                             <a className="open-toggle" href="#"><i className="fe fe-align-left"></i></a>
                             <a className="close-toggle" href="#"><i className="fe fe-x"></i></a>
                         </div>

@@ -12,6 +12,7 @@ import { create, setAuth } from "../store/adminSlice";
 const Login: NextPage = () => {
 
     const router = useRouter()
+    const { setAdminPhone, adminPhone } = useContext(AppContext)
     const [cookie, setCookie] = useCookies(["token"])
     const [phone, setPhone] = useState("")
     const [otp, setOtp] = useState("")
@@ -51,13 +52,13 @@ const Login: NextPage = () => {
             phone,
             account_type: "admin"
         }
-
-        setPhone(phone)
         try {
             const response = await Axios.post(LoginAPI, data, config);
             console.log(response);
+            console.log(phone)
 
             if (response.data.status === true) {
+                setAdminPhone(phone)
                 setVerifyForm(true)
                 setLoginForm(false)
                 setInfo(true)
@@ -87,17 +88,26 @@ const Login: NextPage = () => {
 
         try {
             const response = await Axios.post(VerifyAPI, data, config);
+            console.log(response.data.data)
+            console.log("state Phone", adminPhone)
             if (response.data.status === true) {
                 if (response.data.data.token === null) {
+                    setAdminPhone(response.data.data.phone)
                     dispatch(setAuth(true))
                     router.push('/profile-setup')
-                } else if (response.data.data.user.admin.approved_at) {
+                } else if (!response.data.data.user.admin && response.data.data.user.rider) {
+                    setError(true)
+                    setAlertMessage("Unauthorized access, download a Rider app to continue")
+                } else if (!response.data.data.user.admin && response.data.data.user.driver) {
+                    setError(true)
+                    setAlertMessage("Unauthorized access, download a Driver app to continue")
+                }
+                else if (response.data.data.user.admin && response.data.data.user.admin.approved_at) {
                     dispatch(setAuth(true))
                     dispatch(create({
                         user: response.data.data.user,
                         token: response.data.data.token
                     }))
-                    const userToken = response.data.data.token
                     // localStorage.setItem("token", userToken)
                     router.push('/dashboard')
 
@@ -115,6 +125,7 @@ const Login: NextPage = () => {
             setError(true)
             setAlertMessage(err.message)
         }
+        console.log("afterVer", adminPhone)
     }
 
     return (

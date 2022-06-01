@@ -4,13 +4,15 @@ import { ErrorAlert, SuccessAlert } from '../components/Alert'
 import PageHead from '../components/Head'
 import AppContext from '../context/AppContext'
 import Axios, { config } from '../context/Axios'
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
 
 const ProfileSetup = () => {
-    const { setAdmin, setToken, userPhone } = useContext(AppContext)
+    const dispatch = useAppDispatch()
+    const { adminPhone } = useContext(AppContext)
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState(userPhone)
+    const [phone, setPhone] = useState(adminPhone)
     const [alert, setAlert] = useState(false)
     const [error, setError] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")

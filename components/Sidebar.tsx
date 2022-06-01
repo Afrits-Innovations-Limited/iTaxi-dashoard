@@ -1,27 +1,41 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Link from "next/link";
 import Image from 'next/image';
 import { useRouter } from "next/router";
 import Navbar from './Navbar';
-import { useAppSelector } from '../hooks/reducerHooks';
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks';
+import { setToggle } from '../store/toggleSlice';
 
 const Sidebar = () => {
 
     const router = useRouter();
-
+    const dispatch = useAppDispatch()
     const toggle = useAppSelector(state => state.toggle.toggle)
+    const ulToggle = useAppSelector(state => state.toggle.ulToggle)
     const admin = useAppSelector(state => state.admin.user)
     const [openSideMenu, setOpenSideMenu] = useState(true)
     const [visibleList, setVisibleList] = useState(false)
     const [visibleList_2, setVisibleList_2] = useState(false)
+
+
     const menuHover = () => {
-        setOpenSideMenu(true)
+        // if (toggle) {
+        //     dispatch(setToggle(false))
+        // }
+
     }
 
+    const menuLeave = () => {
+        // setTimeout(() => {
+        //     if (!toggle) {
+        //         dispatch(setToggle(true));
+        //     }
+        // }, 2000);
+    }
     return (
         <div>
             <Navbar />
-            <div className={`app-sidebar__overlay ${toggle && 'sidenav-toggled'}`}></div>
+            <div className={`app-sidebar__overlay ${toggle && 'sidenav-toggled'} ${openSideMenu && "sidenav-toggled"}`}></div>
             <aside className="app-sidebar">
                 <div className="sidebar-user-settings">
                     <div className="app-sidebar__user mb-4 mt-4">
@@ -44,7 +58,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </div>
-                <ul className={`side-menu`} onMouseEnter={menuHover} onMouseLeave={menuHover} onClick={() => setOpenSideMenu(!openSideMenu)}>
+                <ul className={`side-menu`} onMouseEnter={menuHover} onMouseLeave={menuLeave} onClick={() => setOpenSideMenu(!openSideMenu)}>
                     <li><h3>ITAXI</h3></li>
                     <li className={`slide ${visibleList && 'is-expanded'}`}>
                         <a className="side-menu__item" data-toggle="slide" onClick={() => { setVisibleList(!visibleList) }}><i className="angle fe fe-chevron-right"></i><span className="side-menu__label">Dashboard</span><i className="side-menu__icon fe fe-airplay"></i></a>
