@@ -105,6 +105,7 @@ const Login: NextPage = () => {
                         token: response.data.data.token
                     }))
                     // localStorage.setItem("token", userToken)
+
                     router.push('/dashboard')
 
                 } else {
@@ -207,3 +208,4 @@ const Login: NextPage = () => {
 }
 
 export default Login
+

@@ -5,6 +5,7 @@ import Image from "../components/Image"
 import Axios from '../context/Axios'
 import { InfoAlert, WarningAlert } from './Alert'
 import { useAppSelector } from '../hooks/reducerHooks'
+// import ImageUploader from 'react-images-upload'
 
 
 
@@ -26,7 +27,7 @@ const CreateCarMake = () => {
 
     const config = {
         headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "multipart/form-data",
             'Access-Control-Allow-Origin': "*",
             'Accept': "application/json",
             'Authorization': AuthUser
@@ -48,57 +49,61 @@ const CreateCarMake = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        // const data = {
-        //     name,
-        //     description,
-        //     picture,
-        // }
-        // console.log(picture);
-        // console.log(data)
+        const data = {
+            name,
+            description,
+            picture,
+        }
+        const formData = new FormData()
 
-        // try {
-        //     const response = await Axios.post(createCarMakeAPI, data, config);
-        //     if (response.data.status === true) {
-        //         setAlert(true)
-        //         setAlertMessage(response.data.message)
-        //         console.log(response.data)
+        formData.append('name', name),
+            formData.append('description', description),
+            formData.append('picture', picture)
 
-        //     } else {
-        //         console.log(response.data.message);
-        //         setError(true)
-        //         setAlertMessage(response.data.message)
-        //     }
-        // }
 
-        // catch (err: any) {
-        //     console.log(err)
-        //     setError(true)
-        //     setAlertMessage(err.message)
-        // }
+        try {
+            const response = await Axios.post(createCarMakeAPI, data, config);
+            if (response.data.status === true) {
+                setAlert(true)
+                setAlertMessage(response.data.message)
+                console.log(response.data)
 
-        var formdata = new FormData();
-        formdata.append("name", name);
-        formdata.append("picture", picture, "passport.jpg");
-        formdata.append("description", description);
+            } else {
+                console.log(response.data.message);
+                setError(true)
+                setAlertMessage(response.data.message)
+            }
+        }
 
-        console.log(picture)
-        var myHeaders = new Headers();
-        myHeaders.append("Accept", "application/json");
-        myHeaders.append("Authorization", AuthUser);
+        catch (err: any) {
+            console.log(err)
+            setError(true)
+            setAlertMessage(err.message)
+        }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-        };
+        // var formdata = new FormData();
+        // formdata.append("name", name);
+        // formdata.append("picture", picture, "passport.jpg");
+        // formdata.append("description", description);
 
-        fetch("https://itaxi.dap.ng/api/v1/admin/cars/make/create", requestOptions)
-            .then(response => {
-                console.log("response: ", response)
-                return response
-            })
-            .then(result => console.log("result: ", result))
-            .catch(error => console.log('error', error));
+        // console.log(picture)
+        // var myHeaders = new Headers();
+        // myHeaders.append("Accept", "application/json");
+        // myHeaders.append("Authorization", AuthUser);
+
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: formdata,
+        // };
+
+        // fetch("https://itaxi.dap.ng/api/v1/admin/cars/make/create", requestOptions)
+        //     .then(response => {
+        //         console.log("response: ", response)
+        //         return response
+        //     })
+        //     .then(result => console.log("result: ", result))
+        //     .catch(error => console.log('error', error));
 
     }
 
@@ -125,7 +130,8 @@ const CreateCarMake = () => {
                                 </div>
                                 <div className="form-group">
                                     <label className="form-label">Enter Car Image</label>
-                                    <Image name={"pictute"} setSelectedImage={setPicture} />
+                                    {/* <Image name={"pictute"} setSelectedImage={setPicture} /> */}
+
                                 </div>
                                 {/* <input type="file"  accept="image/*" name="picture" onChange={(e: ChangeEvent<HTMLInputElement>) => setPicture(e.target)} /> */}
                                 <div>
