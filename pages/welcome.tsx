@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NotFound = () => {
+const Welcome = () => {
     return (
         <div className='login-img'>
             <div className="page h-100">
@@ -13,7 +13,7 @@ const NotFound = () => {
                                 You'll be able to view this page once you've been approved
                             </h5>
                             <div className="text-center">
-                                <a className="btn btn-white mt-5 mb-5" href="/"> <i className="mdi mdi-arrow-left"></i> </a>
+                                <a className="btn btn-white mt-5 mb-5" href="/login"> <i className="mdi mdi-arrow-left"></i> </a>
                             </div>
                         </div>
                     </div>
@@ -24,4 +24,4 @@ const NotFound = () => {
     )
 }
 
-export default NotFound
+export default Welcome

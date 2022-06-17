@@ -1,6 +1,4 @@
 import React, { ChangeEvent } from 'react'
-import ImageUploader from 'react-image-upload'
-// import 'react-image-upload/dist/index.css'
 
 
 

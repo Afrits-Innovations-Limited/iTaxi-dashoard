@@ -10,87 +10,29 @@ import '../styles/css/select2.min.css'
 import '../styles/css/multiple-select.css'
 import '../styles/css/jquery.timepicker.css'
 import '../styles/css/spectrum.css'
-import "react-datetime/css/react-datetime.css";
-import "swiper/css/bundle";
-import "swiper/css";
-import "swiper/css/pagination";
 import type { AppProps } from 'next/app'
-import AppContext from '../context/AppContext'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
+import { Provider } from 'react-redux'
+import { persistor, store } from '../store/store'
+import { CookiesProvider } from 'react-cookie'
+import { PersistGate } from 'redux-persist/integration/react'
 import { useRouter } from 'next/router'
 import ProtectedRoutes from '../context/ProtectedRoutes'
-import Axios from '../context/Axios'
+import AppContext from '../context/AppContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [toggle, setToggle] = useState(false)
   const [carsForRent, setCarsForRent] = useState([])
-  const [profileToggle, setProfileToggle] = useState(false)
-  const [pendingDrivers, setPendingDrivers] = useState([])
-  const [pendingAdmins, setPendingAdmins] = useState([])
-  const [auth, setAuth] = useState(false)
-  const [admin, setAdmin] = useState({})
   const [cars, setCars] = useState([])
   const [availableCars, setAvailableCars] = useState([])
-  const [revenue, setRevenue] = useState({})
-  const [usersReport, setUsersReport] = useState({})
-  const [token, setToken] = useState("")
-  const [data, setData] = useState({})
-  const [userPhone, setUserPhone] = useState("")
-  const AuthUser = "Bearer " + token;
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      'Access-Control-Allow-Origin': "*",
-      'Accept': "application/json",
-      "Authorization": AuthUser,
-    }
+  const [adminPhone, setAdminPhone] = useState("")
+  const requireNoAuth = ['/', '/login', '/signup', '/forgot-password', '/welcome']
+
+  const contextProvider = {
+    cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent, adminPhone, setAdminPhone
   }
 
   const router = useRouter()
-  const requireNoAuth = ['/', '/login', '/signup', '/forgot-password', '/welcome']
-
-  // Fetching Unapproved Admins
-  const pendingAdminsAPI = "/v1/admin/users/admins/pending"
-  useEffect(() => {
-    Axios.get(pendingAdminsAPI, config).then((response) => {
-      console.log("pending", response.data.data)
-      setPendingAdmins(response.data.data.data);
-    });
-  }, [])
-
-  // Fetching UnapprovedDrivers
-  const pendingDriversAPI = "/v1/admin/users/drivers/pending"
-  useEffect(() => {
-    Axios.get(pendingDriversAPI, config).then((response) => {
-      console.log("pending", response.data.data)
-      setPendingDrivers(response.data.data.data);
-    });
-  }, [])
-
-
-  const contextProvider = {
-    userPhone,
-    setUserPhone,
-    data,
-    setData,
-    revenue,
-    usersReport,
-    setRevenue,
-    setUsersReport,
-    admin,
-    setAdmin,
-    toggle,
-    setToggle,
-    profileToggle,
-    setProfileToggle,
-    auth, setAuth, token, setToken, cars, setCars, availableCars, setAvailableCars, setCarsForRent, carsForRent,
-    pendingDrivers,
-    setPendingDrivers,
-    pendingAdmins,
-    setPendingAdmins
-  }
-
 
 
   return (
@@ -106,15 +48,21 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" href="/favicon-16x16.png" />
 
       </Head>
-      <AppContext.Provider value={contextProvider}>
-        {requireNoAuth.includes(router.pathname) ? (
-          <Component {...pageProps} />
-        ) : (
-          <ProtectedRoutes>
-            <Component {...pageProps} />;
-          </ProtectedRoutes>
-        )}
-      </AppContext.Provider>
+      <CookiesProvider>
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <AppContext.Provider value={contextProvider} >
+              {requireNoAuth.includes(router.pathname) ? (
+                <Component {...pageProps} />
+              ) : (
+                <ProtectedRoutes>
+                  <Component {...pageProps} />
+                </ProtectedRoutes>
+              )}
+            </AppContext.Provider>
+          </PersistGate>
+        </Provider>
+      </CookiesProvider>
     </>
 
   )

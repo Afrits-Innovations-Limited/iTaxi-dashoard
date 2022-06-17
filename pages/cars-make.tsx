@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Axios from '../context/Axios';
 import DashboardLayout from "../layouts/Dashboard"
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
 import AppContext from '../context/AppContext';
 import Ratings from '../components/Ratings';
 import UpdateCarMake from '../components/UpdateCarMake';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useAppSelector } from '../hooks/reducerHooks';
 
 
 const SingleCar = ({ car }) => {
@@ -45,7 +44,8 @@ const SingleCar = ({ car }) => {
 const Cars = () => {
 
     const getCarMakeAPI = "/v1/admin/cars/make"
-    const { token, cars, setCars } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
+    const { cars, setCars } = useContext(AppContext)
     const [updateCars, setUpdateCars] = useState(false)
     const router = useRouter()
     const AuthUser = "Bearer " + token;
@@ -61,7 +61,6 @@ const Cars = () => {
     useEffect(() => {
         Axios.get(getCarMakeAPI, config).then((response) => {
             setCars(response.data.data);
-            console.log('cars make: ', response.data.data);
         });
     }, []);
 

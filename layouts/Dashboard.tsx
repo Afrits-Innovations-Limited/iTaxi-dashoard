@@ -1,8 +1,7 @@
 import Head from "../components/Head";
 import Sidebar from "../components/Sidebar";
 import Profile from "../components/Profile";
-import { useContext } from "react";
-import AppContext from "../context/AppContext";
+import { useAppSelector } from "../hooks/reducerHooks";
 
 
 const DashboardLayout = (props: {
@@ -11,7 +10,7 @@ const DashboardLayout = (props: {
     children: React.ReactNode;
 }) => {
 
-    const { toggle } = useContext(AppContext)
+    const toggle = useAppSelector(state => state.toggle.toggle)
     return (
         <div className={`app sidebar-mini Left-menu-Default  Sidemenu-left-icons ${toggle && "sidenav-toggled "}`} >
             <Head title={props.title} description={props.description} />

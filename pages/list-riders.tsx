@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react'
-import AppContext from '../context/AppContext';
 import Axios from '../context/Axios';
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks';
 import DashboardLayout from '../layouts/Dashboard'
+import { createRidersList } from '../store/userSlice';
 
 const ListRiders = () => {
 
-    const { token, } = useContext(AppContext)
+    const token = useAppSelector(state => state.admin.token)
+    const ridersList = useAppSelector(state => state.user.ridersList)
     const AuthUser = "Bearer " + token;
-    const [list, setList] = useState([])
     const [lastname, setLastName] = useState("")
     const [firstname, setFirstName] = useState("")
     const [email, setEmail] = useState("")
@@ -24,17 +25,14 @@ const ListRiders = () => {
             "Authorization": AuthUser,
         }
     }
+    const dispatch = useAppDispatch()
 
     const getList = `/v1/admin/users/list?${lastname}&${firstname}&${email}&${phone}&type=rider`
 
     // Fetching Drivers
     useEffect(() => {
         Axios.get(getList, config).then((response) => {
-
-            console.log(response.data.data)
-            setList(response.data.data.data);
-            console.log(response.data.data.data);
-
+            dispatch(createRidersList(response.data.data.data))
         });
     }, [])
 
@@ -63,7 +61,7 @@ const ListRiders = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {list.map((drivers, index) => (
+                                        {ridersList.map((drivers, index) => (
                                             <tr key={index}>
                                                 <th scope="row">{index + 1} </th>
                                                 <td>{drivers.firstname}</td>

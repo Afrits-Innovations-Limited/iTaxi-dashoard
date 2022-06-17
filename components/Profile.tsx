@@ -1,12 +1,15 @@
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import AppContext from '../context/AppContext'
-import { user } from "../data/mockdata"
-import ReactTimeAgo from 'react-time-ago'
+import React from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/reducerHooks'
+import { setProfileToggle } from '../store/toggleSlice'
+
 
 const Profile = () => {
+    const toggle = useAppSelector(state => state.toggle.toggle)
+    const profileToggle = useAppSelector(state => state.toggle.profileToggle)
+    const admin = useAppSelector(state => state.admin.user)
+    const dispatch = useAppDispatch()
 
-    const { profileToggle, setProfileToggle, admin } = useContext(AppContext)
     const date = new Date(admin.created_at).getFullYear()
 
     return (
@@ -14,7 +17,7 @@ const Profile = () => {
             <div className={`sidebar sidebar-right sidebar-animate ${profileToggle && 'sidebar-open'}`}>
                 <div className="p-4 border-bottom">
                     <span className="fs-17">Profile Settings</span>
-                    <span className="sidebar-icon text-right float-right" onClick={() => setProfileToggle(false)}><i className="fe fe-x"></i></span>
+                    <span className="sidebar-icon text-right float-right" onClick={() => dispatch(setProfileToggle(false))}><i className="fe fe-x"></i></span>
                 </div>
                 <div className="card-body p-0">
                     <div className="header-user text-center mt-4 pb-4">
