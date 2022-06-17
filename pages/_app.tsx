@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
               ) : (
                 <ProtectedRoutes>
-                  <Component {...pageProps} />;
+                  <Component {...pageProps} />
                 </ProtectedRoutes>
               )}
             </AppContext.Provider>

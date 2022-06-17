@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { parseCookies } from "../helpers";
 import { useAppSelector } from "../hooks/reducerHooks";
-import Axios from "../context/Axios";
+
 
 
 export const Index: NextPage = () => {
@@ -26,7 +25,7 @@ export const Index: NextPage = () => {
     <div>iTaxi</div>
 
   )
-};
+}
 
-export default Index;
+export default Index
 

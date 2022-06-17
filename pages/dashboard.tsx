@@ -6,7 +6,7 @@ import Axios from "../context/Axios";
 import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
 import { useRouter } from "next/router";
 import { createPendingAdmins, createPendingDrivers, getPendingAdmins, getPendingDrivers, readCount } from "../store/userSlice";
-import { createRevenue, driverCancelledTrips, getCancelledRequests, getCancelledTrips, getCommision, getFleets, getRevenueLastWeek, getRevenueThisWeek, setServiceType, } from "../store/cardSlice";
+import { createRevenue, driverCancelledTrips, getCancelledRequests, getCancelledTrips, getCommision, getFleets, getPaymentRequests, getRevenueLastWeek, getRevenueThisWeek, setServiceType, } from "../store/cardSlice";
 
 const Dashboard: NextPage = () => {
     const router = useRouter()
@@ -26,6 +26,7 @@ const Dashboard: NextPage = () => {
     const lastWeek = useAppSelector(state => state.card.lastWeekRevenue)
     const thisWeek = useAppSelector(state => state.card.thisWeekRevenue)
     const commission = useAppSelector(state => state.card.commission)
+    const paymentRequest = useAppSelector(state => state.card.paymentRequests)
 
     // const date = new Date().getUTCDate()
     let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
@@ -53,6 +54,12 @@ const Dashboard: NextPage = () => {
                 driverCount: drivers,
                 riderCount: riders
             }))
+        });
+    }, [])
+    useEffect(() => {
+        Axios.get("/v1/admin/payment-request", config).then((res) => {
+            const data = res.data.data;
+            dispatch(getPaymentRequests(data))
         });
     }, [])
 
@@ -182,11 +189,23 @@ const Dashboard: NextPage = () => {
                 <div className="banner banner-color mt-0 row">
                     <div className="page-content col-xl-7 col-lg-6 col-md-12">
                         <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{admin.lastname} {admin.firstname} </span></h3>
-
                     </div>
                 </div>
             </div>
             <div className="row">
+                <Link href={`/admin/payment-request`}>
+                    <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="card-order">
+                                    <h6 className="mb-2">Payment Requests</h6>
+                                    <h2 className="text-right "><i className="icon-size zmdi zmdi-money-box  float-left text-success text-success-shadow"></i><span>{paymentRequest?.pending_requests.length}</span></h2>
+                                    <p className="mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
                 <Link href={`/dashboard`}>
                     <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                         <div className="card">
@@ -312,7 +331,7 @@ const Dashboard: NextPage = () => {
                         </div>
                     </div>
                 </Link>
-                <Link href={`/dashboard`}>
+                <Link href={`/fleet`}>
                     <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                         <div className="card">
                             <div className="card-body">
@@ -357,9 +376,7 @@ const Dashboard: NextPage = () => {
                         </div>
                     </div>
                 </Link>
-            </div>
-            {/* Revenue */}
-            <div className="row">
+
                 <Link href={`/dashboard`}>
                     <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                         <div className="card">

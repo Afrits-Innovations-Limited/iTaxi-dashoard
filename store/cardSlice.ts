@@ -1,5 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type PaymentObject = {
+    id: number,
+    driver_id: number,
+    amount: number,
+    driver_reason: string,
+    admin_id: number,
+    admin_reason: string,
+    status: string,
+    created_at: string,
+    updated_at: string,
+    deleted_at: string
+}
+
 interface CardState {
     serviceType: string,
     revenue: {
@@ -29,6 +42,12 @@ interface CardState {
         driver_amount: number
         duration: string
         total: number
+    },
+    paymentRequests: {
+        approved_requests: Array<PaymentObject>,
+        canceled_requests: Array<PaymentObject>
+        pending_requests: Array<PaymentObject>
+        unapproved_requests: Array<PaymentObject>
     }
     cancelledRequests: string,
     fleets: string,
@@ -66,6 +85,12 @@ const initialState: CardState = {
         commission: 0,
         duration: ''
 
+    },
+    paymentRequests: {
+        approved_requests: [],
+        canceled_requests: [],
+        pending_requests: [],
+        unapproved_requests: []
     },
     cancelledRequests: null,
     fleets: null,
@@ -110,9 +135,12 @@ export const cardSlice = createSlice({
         },
         driverCancelledTrips: (state, action) => {
             state.driverCancelled = action.payload
+        },
+        getPaymentRequests: (state, action) => {
+            state.paymentRequests = action.payload
         }
     }
 })
 
-export const { createRevenue, setServiceType, getCancelledRequests, getCommision, getFleets, getCancelledTrips, driverCancelledTrips, getRevenueToday, getRevenueThisWeek, getRevenueLastWeek } = cardSlice.actions
+export const { createRevenue, setServiceType, getCancelledRequests, getCommision, getFleets, getCancelledTrips, driverCancelledTrips, getRevenueToday, getRevenueThisWeek, getRevenueLastWeek, getPaymentRequests } = cardSlice.actions
 export default cardSlice.reducer
