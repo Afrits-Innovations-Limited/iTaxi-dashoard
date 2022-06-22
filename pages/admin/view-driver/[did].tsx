@@ -29,20 +29,18 @@ const ViewDriver = () => {
     useEffect(() => {
         Axios.get(viewDriverAPI, config).then((response) => {
             dispatch(createDriver(response.data.data))
-            console.log("driverfromapi", response.data)
         });
     }, [])
 
-    console.log("driverredux", driver)
     return (
         <>
-            <DashboardLayout title={"iTaxi - Driver"} description={"car for hire"}>
+            <DashboardLayout title={"iTaxi - Driver"} description={"itaxi"}>
                 <div className="page-header">
-                    <Link href="/list-drivers">
-                        <a className='text-black' style={{ fontSize: "17px" }}> <i className="mdi mdi-arrow-left"></i> Back</a>
-                    </Link>
                 </div>
-                <div>
+                <Link href="/list-drivers">
+                    <a className='text-black' style={{ fontSize: "17px" }}> <i className="mdi mdi-arrow-left"></i> Back</a>
+                </Link>
+                <div className='row'>
                     <div className="col">
                         <div className="card ">
                             <div className="card-header ">

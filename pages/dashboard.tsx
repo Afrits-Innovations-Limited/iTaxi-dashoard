@@ -43,6 +43,8 @@ const Dashboard: NextPage = () => {
         }
     }
 
+
+    // Riders and Drivers Count
     useEffect(() => {
         Axios.get("/v1/admin/users/count", config).then((res) => {
             const {
@@ -56,13 +58,17 @@ const Dashboard: NextPage = () => {
             }))
         });
     }, [])
+
+    // Payment Requests
     useEffect(() => {
         Axios.get("/v1/admin/payment-request", config).then((res) => {
             const data = res.data.data;
+            console.log(data)
             dispatch(getPaymentRequests(data))
         });
     }, [])
 
+    // Users(Riders and Drivers) Data
     useEffect(() => {
         Axios.get("/v1/admin/users/admins/pending", config).then((res) => {
             const data = res.data.data.data
@@ -82,20 +88,21 @@ const Dashboard: NextPage = () => {
         Axios.get("/v1/admin/dashboard/canceled-requests", config).then((res) => {
             dispatch(getCancelledRequests(res.data.data.total))
         });
-        Axios.get("/v1/admin/dashboard/fleets", config).then((res) => {
-            dispatch(getFleets(res.data.data.total))
-        });
+
         Axios.get("/v1/admin/dashboard/all-canceled-trip", config).then((res) => {
             dispatch(getCancelledTrips(res.data.data.total))
-
         });
         Axios.get("/v1/admin/dashboard/driver-canceled-trip", config).then((res) => {
             dispatch(driverCancelledTrips(res.data.data.total))
-
+        });
+        Axios.get("/v1/admin/dashboard/fleets", config).then((res) => {
+            dispatch(getFleets(res.data.data.total))
+            console.log("Fleets", res.data.data)
         });
     }, [admin])
 
 
+    // Earnings
     useEffect(() => {
         Axios.get("/v1/admin/earning/today", config).then((response) => {
             if (response.data.data.summary !== null) {

@@ -6,7 +6,6 @@ const PaymentRequest = () => {
 
     const token = useAppSelector(state => state.admin.token)
     const AuthUser = "Bearer " + token;
-    const paymentRequest = useAppSelector(state => state.card.paymentRequests)
 
     const config = {
         headers: {
@@ -48,6 +47,7 @@ const PaymentRequest = () => {
                                     <thead>
                                         <tr>
                                             <th className="wd-15p">S/N</th>
+                                            <th className="wd-15p">Date</th>
                                             <th className="wd-15p">Driver ID</th>
                                             <th className="wd-15p">Amount</th>
                                             <th className="wd-10p">View</th>
@@ -58,8 +58,10 @@ const PaymentRequest = () => {
                                         {pendingRequests.map((request, index) => (
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
+                                                <td>{(request.created_at).slice(0, 10)}</td>
                                                 <td>{request.driver_id}</td>
-                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`}>View</a></td>
+                                                <td>{request.amount}</td>
+                                                <td><a href={`/admin/payment-request/view/${request.id}`} className='btn btn-primary'>View</a></td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -92,6 +94,7 @@ const PaymentRequest = () => {
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td>{request.driver_id}</td>
+                                                <td>{request.amount}</td>
                                                 <td><a href={`/admin/payment-request/view/${request.driver_id}`}>View</a></td>
                                             </tr>
                                         ))}
