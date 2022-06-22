@@ -14,7 +14,7 @@ const UpdateCarMake = ({ id }) => {
     const token = useAppSelector(state => state.admin.token)
     // const cars = useAppSelector(state => state.currentCar.currentCar)
     const { cars } = useContext(AppContext)
-    const carToUpdate = cars.findCar(carId => carId.id == id)
+    const carToUpdate = cars.find(carId => carId.id == id)
     // const carToUpdate = JSON.parse(cars)
 
     const [description, setDescription] = useState(carToUpdate?.id)
