@@ -95,7 +95,7 @@ const PaymentRequest = () => {
                                                 <td>{index + 1}</td>
                                                 <td>{request.driver_id}</td>
                                                 <td>{request.amount}</td>
-                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`}>View</a></td>
+                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`} className='btn btn-primary'>View</a></td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -128,7 +128,8 @@ const PaymentRequest = () => {
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td>{request.driver_id}</td>
-                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`}>View</a></td>
+                                                <td>{request.amount} </td>
+                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`} className='btn btn-primary'>View</a></td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -162,7 +163,7 @@ const PaymentRequest = () => {
                                                 <td>{index + 1}</td>
                                                 <td>{request.driver_id}</td>
                                                 <td>{request.amount}</td>
-                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`}>View</a></td>
+                                                <td><a href={`/admin/payment-request/view/${request.driver_id}`} className='btn btn-primary'>View</a></td>
                                             </tr>
                                         ))}
                                     </tbody>
