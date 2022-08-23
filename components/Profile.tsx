@@ -6,11 +6,11 @@ import { setProfileToggle } from '../store/toggleSlice'
 
 const Profile = () => {
     const toggle = useAppSelector(state => state.toggle.toggle)
-    const profileToggle = useAppSelector(state => state.toggle.profileToggle)
-    const admin = useAppSelector(state => state.admin.user)
+    const profileToggle = useAppSelector(state => state?.toggle.profileToggle)
+    const admin = useAppSelector(state => state?.admin.user)
     const dispatch = useAppDispatch()
 
-    const date = new Date(admin.created_at).getFullYear()
+    const date = new Date(admin?.created_at).getFullYear()
 
     return (
         <div>
@@ -23,10 +23,10 @@ const Profile = () => {
                     <div className="header-user text-center mt-4 pb-4">
                         <span className="avatar avatar-xxl brround rounded-img">
                             <img src="/images/users/uservatar.png" alt="Profile-img" className="avatar avatar-xxl brround" /></span>
-                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{admin.lastname} {admin.firstname}</div>
-                        <small className='block'>{admin.email}</small>
-                        <small className='block'>{admin.phone}</small>
-                        <small className='block'>{admin.account_type}</small>
+                        <div className="dropdown-item text-center font-weight-semibold user h3 mb-0 p-0 mt-3">{admin?.lastname} {admin?.firstname}</div>
+                        <small className='block'>{admin?.email}</small>
+                        <small className='block'>{admin?.phone}</small>
+                        <small className='block'>{admin?.account_type}</small>
                     </div>
 
                     <div className="card-body border-top">

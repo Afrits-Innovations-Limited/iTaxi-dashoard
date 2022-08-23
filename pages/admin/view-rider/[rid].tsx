@@ -54,21 +54,21 @@ const ViewRider = () => {
                     <div className="col">
                         <div className="card ">
                             <div className="card-header ">
-                                <h3 className="card-title "><Ratings value={data.star} /> </h3>
+                                <h3 className="card-title "><Ratings value={data?.star} /> </h3>
                                 <div className="card-options">
-                                    <div><span className={`${data.is_active === 0 ? "text-danger" : "text-success"} h4`}>{data.is_active === null ? "Offline" : "Online"}</span></div>
+                                    <div><span className={`${data?.is_active === 0 ? "text-danger" : "text-success"} h4`}>{data?.is_active === null ? "Offline" : "Online"}</span></div>
                                 </div>
                             </div>
                             <div className="card-body text-center">
-                                <h4 className="h4 mb-0 mt-3">{data.firstname} {data.lastname}</h4>
-                                <h4 className="h6 mb-0 mt-3">{data.email}</h4>
-                                <h4 className="h6 mb-0 mt-3">{data.phone}</h4>
+                                <h4 className="h4 mb-0 mt-3">{data?.firstname} {data?.lastname}</h4>
+                                <h4 className="h6 mb-0 mt-3">{data?.email}</h4>
+                                <h4 className="h6 mb-0 mt-3">{data?.phone}</h4>
                             </div>
                             <div className="card-footer text-center">
-                                <p className=''>Joined:  <span className="h6">{data.joined_date}</span></p>
-                                <p className='mt-3'>Home Address:  <span className="h6">{data.rider.home_address}</span></p>
-                                <p className=''>Work Address: <span className="h6"> {data.rider.work_address} </span></p>
-                                <p className=''>Id: <span className={`h6 ${!data.rider.user_id && "text-danger"}`}> {!data.rider.user_id ? "Not provided" : data.rider.user_id} </span></p>
+                                <p className=''>Joined:  <span className="h6">{data?.joined_date}</span></p>
+                                <p className='mt-3'>Home Address:  <span className="h6">{data?.rider?.home_address}</span></p>
+                                <p className=''>Work Address: <span className="h6"> {data?.rider?.work_address} </span></p>
+                                <p className=''>Id: <span className={`h6 ${!data?.rider?.user_id && "text-danger"}`}> {!data?.rider?.user_id ? "Not provided" : data?.rider?.user_id} </span></p>
 
                             </div>
                         </div>

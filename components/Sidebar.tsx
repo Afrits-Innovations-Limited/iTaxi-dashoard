@@ -12,7 +12,7 @@ const Sidebar = () => {
     const dispatch = useAppDispatch()
     const toggle = useAppSelector(state => state.toggle.toggle)
     const ulToggle = useAppSelector(state => state.toggle.ulToggle)
-    const admin = useAppSelector(state => state.admin.user)
+    const admin = useAppSelector(state => state.admin?.user)
     const [openSideMenu, setOpenSideMenu] = useState(true)
     const [visibleList, setVisibleList] = useState(false)
     const [visibleList_2, setVisibleList_2] = useState(false)
@@ -51,8 +51,8 @@ const Sidebar = () => {
                                     </span> */}
                                 </div>
                                 <div className="user-info">
-                                    <h5 className=" mb-1 font-weight-bold text-dark">{admin.lastname} {admin.firstname}</h5>
-                                    <span className="text-muted app-sidebar__user-name text-sm">{admin.account_type}</span>
+                                    <h5 className=" mb-1 font-weight-bold text-dark">{admin?.lastname} {admin?.firstname}</h5>
+                                    <span className="text-muted app-sidebar__user-name text-sm">{admin?.account_type}</span>
                                 </div>
                             </a>
                         </div>
