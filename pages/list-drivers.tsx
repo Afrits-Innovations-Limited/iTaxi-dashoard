@@ -28,11 +28,13 @@ const ListDrivers = () => {
     const dispatch = useAppDispatch()
 
     const getList = `/v1/admin/users/list?${lastname}&${firstname}&${email}&${phone}&type=driver`
+    // const getList = `/v1/admin/users/list&type=driver`
 
     // Fetching Drivers
     useEffect(() => {
         Axios.get(getList, config).then((response) => {
             dispatch(createDriversList(response.data.data.data))
+            console.log("driver", driversList)
         });
     }, [])
 

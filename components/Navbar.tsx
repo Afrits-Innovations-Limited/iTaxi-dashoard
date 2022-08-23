@@ -5,7 +5,7 @@ import { setProfileToggle, setToggle } from '../store/toggleSlice'
 
 const Navbar = () => {
     const toggle = useAppSelector(state => state.toggle.toggle)
-    const user = useAppSelector(state => state.admin.user)
+    const user = useAppSelector(state => state?.admin?.user)
     const profileToggle = useAppSelector(state => state.toggle.profileToggle)
     const dispatch = useAppDispatch()
 
@@ -144,6 +144,7 @@ const Navbar = () => {
                     </div>
                     {/* Profile */}
                     <div className="dropdown profile-1">
+
                         <a href="#" data-toggle="dropdown" className="nav-link pr-2 leading-none d-flex" onClick={() => { setProfileDPD(!profiledpd); inboxdpd && setInboxDPD(false); notificationdpd && setNotificationDPD(false) }}>
                             <span className='img-fit'>
                                 <img src="/images/users/uservatar.png" alt="profile-user" className="avatar profile-user brround cover-image" />
@@ -153,14 +154,17 @@ const Navbar = () => {
                         <div className={`dropdown-menu dropdown-menu-right dropdown-menu-arrow ${profiledpd && 'show'}`} >
                             <div className="drop-heading">
                                 <div className="text-center">
-                                    <h5 className="text-dark mb-0">{user.firstname} {user.lastname}</h5>
+                                    <h5 className="text-dark mb-0">{user?.firstname} {user?.lastname}</h5>
                                     <small className="text-muted">Administrator</small>
                                 </div>
                             </div>
                             <div className="dropdown-divider m-0"></div>
-                            <a className="dropdown-item" href="#">
-                                <i className="dropdown-icon mdi mdi-account-outline"></i> Profile
-                            </a>
+                            <Link href='/profile'>
+                                <a className="dropdown-item">
+                                    <i className="dropdown-icon mdi mdi-account-outline"></i> Profile
+                                </a>
+                            </Link>
+
                             <a className="dropdown-item" href="#" onClick={() => dispatch(setToggle(!toggle))}>
                                 <i className="dropdown-icon  mdi mdi-settings"></i> Settings
                             </a>
@@ -221,17 +225,21 @@ const Navbar = () => {
                                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     <div className="drop-heading">
                                         <div className="text-center">
-                                            <h5 className="text-dark mb-0">Devid Antoni</h5>
+                                            <h5 className="text-dark mb-0"> {user?.firstname} {user?.lastname}</h5>
                                             <small className="text-muted">Administrator</small>
                                         </div>
                                     </div>
                                     <div className="dropdown-divider m-0"></div>
-                                    <a className="dropdown-item" href="#">
-                                        <i className="dropdown-icon mdi mdi-account-outline"></i> Profile
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        <i className="dropdown-icon  mdi mdi-settings"></i> Settings
-                                    </a>
+                                    <Link href={'/profile'}>
+                                        <a className="dropdown-item">
+                                            <i className="dropdown-icon mdi mdi-account-outline"></i> Profile
+                                        </a>
+                                    </Link>
+                                    <Link href='/profile'>
+                                        <a className="dropdown-item" href="">
+                                            <i className="dropdown-icon  mdi mdi-settings"></i> Settings
+                                        </a>
+                                    </Link>
                                     <a className="dropdown-item" href="#">
                                         <span className="float-right"></span>
                                         <i className="dropdown-icon mdi  mdi-message-outline"></i> Inbox

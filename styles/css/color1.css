@@ -6,7 +6,9 @@ a {
   color: #a855f7; }
   a:hover {
     color: #a855f7; }
-
+.bg-blue {
+  background-color: #006fff;
+}
 .bg-primary {
   background: linear-gradient(to right, #ec4899, #a855f7 ) !important; }
 

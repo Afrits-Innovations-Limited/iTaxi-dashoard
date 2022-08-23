@@ -47,6 +47,67 @@ type RiderObject = {
     updated_at: string
     user_verified_at: string
 }
+type DriverObject = {
+    id: number,
+    firstname: string,
+    lastname: string,
+    phone: string,
+    email: string,
+    "joined_date": string,
+    "user_verified_at": string,
+    "is_active": number,
+    "account_type": string,
+    "star": number,
+    "firebase_token": null,
+    "remember_token": null,
+    "created_at": string,
+    "updated_at": string,
+    "deleted_at": null,
+    "pic": null,
+    "password": null,
+    "wallet": null,
+    "rider": null,
+    driver: {
+        "id": number,
+        "user_id": number,
+        "approved_at": string,
+        "is_online": number,
+        "created_at": string,
+        "updated_at": string,
+        "deleted_at": string,
+        "car_id": number,
+        "driver_license_id": string,
+        "insurance_id": string,
+        "permit_id": string,
+        "vehicle_registration_id": string,
+        "approved_by": string,
+        "bank_name": string,
+        "account_number": string,
+        car: {
+            base_rate: number
+            brand: string
+            created_at: string
+            deleted_at: null
+            driver_id: number
+            exterior: string
+            id: number
+            interior: string
+            is_available: number
+            lat: string
+            lon: string
+            model: string
+            no_of_passenges: number
+            picture: null
+            plate_number: string
+            updated_at: string
+            year: string
+        },
+        "driver_license": string,
+        "permit": string,
+        "insurance": string,
+        "vehicle_registration": string
+    }
+}
 type UserVerifiedObject = {
     account_type: string
     created_at: string
@@ -207,12 +268,12 @@ type Driver = {
     deleted_at: null
     driver_license: microObject
     driver_license_id: number
-    id: 8
+    id: number
     insurance: microObject
-    insurance_id: 2
+    insurance_id: number
     is_online: 0
     permit: microObject
-    permit_id: 2
+    permit_id: number
     updated_at: string
     user: {
         account_type: string
@@ -236,8 +297,11 @@ type Driver = {
     vehicle_registration_id: number
 
 }
+
+
 interface UserState {
-    driver: UserVerifiedObject
+    // driver: UserVerifiedObject
+    driver: DriverObject
     rider: RiderObject,
     driversList: Array<UserObject>,
     ridersList: Array<UserObject>
@@ -251,7 +315,7 @@ interface UserState {
     pendingAdminCount: number,
 }
 
-const initialState: UserState = {
+const initialState = {
     driver: null,
     rider: null,
     driversList: [],

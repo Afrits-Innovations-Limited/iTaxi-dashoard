@@ -1,17 +1,17 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import DashboardLayout from "../layouts/Dashboard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Axios from "../context/Axios";
 import { useAppDispatch, useAppSelector } from "../hooks/reducerHooks";
 import { useRouter } from "next/router";
-import { createPendingAdmins, createPendingDrivers, getPendingAdmins, getPendingDrivers, readCount } from "../store/userSlice";
+import { createPendingAdmins, createPendingDrivers, getPendingAdmins, createDriversList, getPendingDrivers, readCount, createRidersList } from "../store/userSlice";
 import { createRevenue, driverCancelledTrips, getCancelledRequests, getCancelledTrips, getCommision, getFleets, getPaymentRequests, getRevenueLastWeek, getRevenueThisWeek, setServiceType, } from "../store/cardSlice";
 
 const Dashboard: NextPage = () => {
     const router = useRouter()
-    const token = useAppSelector(state => state.admin.token)
-    const admin = useAppSelector(state => state.admin.user)
+    const token = useAppSelector(state => state?.admin.token)
+    const admin = useAppSelector(state => state?.admin.user)
     const canceledTrip = useAppSelector(state => state.card.cancelledTrips)
     const user = useAppSelector(state => state.user.count)
     const revenue = useAppSelector(state => state.card.revenue)
@@ -19,19 +19,27 @@ const Dashboard: NextPage = () => {
     const cancelledRequests = useAppSelector(state => state.card.cancelledRequests)
     // const pendingDriver = useAppSelector(state => state.user.pendingDrivers)
     // const pendingAdmins = useAppSelector(state => state.user.pendingAdmins)
-    const noOfPendingDrivers = useAppSelector(state => state.user.pendingDriversCount)
-    const noOfPendingAdmins = useAppSelector(state => state.user.pendingAdminCount)
+    const noOfPendingDrivers = useAppSelector(state => state?.user?.pendingDriversCount)
+    const noOfPendingAdmins = useAppSelector(state => state?.user?.pendingAdminCount)
     const fleets = useAppSelector(state => state.card.fleets)
     const driverCancelled = useAppSelector(state => state.card.driverCancelled)
     const lastWeek = useAppSelector(state => state.card.lastWeekRevenue)
     const thisWeek = useAppSelector(state => state.card.thisWeekRevenue)
     const commission = useAppSelector(state => state.card.commission)
     const paymentRequest = useAppSelector(state => state.card.paymentRequests)
+    const [driverlastname, setDriverLastName] = useState("")
+    const [driverfirstname, setFirstName] = useState("")
+    const [driveremail, setEmail] = useState("")
+    const [driverphone, setPhone] = useState("")
+    const [riderlastname, setriderLastName] = useState("")
+    const [riderfirstname, setriderFirstName] = useState("")
+    const [rideremail, setriderEmail] = useState("")
+    const [riderphone, setriderPhone] = useState("")
 
     // const date = new Date().getUTCDate()
     let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
     const todaysDate = `${year}-${month}-${date}`
-    const startDate = admin.joined_date
+    const startDate = admin?.joined_date
     const dispatch = useAppDispatch()
     const AuthUser = "Bearer " + token;
     const config = {
@@ -43,6 +51,23 @@ const Dashboard: NextPage = () => {
         }
     }
 
+
+    // List Drivers
+    const getDriverList = `/v1/admin/users/list?${driverlastname}&${driverfirstname}&${driveremail}&${driverphone}&type=driver`
+    useEffect(() => {
+        Axios.get(getDriverList, config).then((response) => {
+            dispatch(createDriversList(response.data.data.data))
+        });
+    }, [])
+
+    // List Riders
+    const getList = `/v1/admin/users/list?${riderlastname}&${riderfirstname}&${rideremail}&${riderphone}&type=rider`
+
+    useEffect(() => {
+        Axios.get(getList, config).then((response) => {
+            dispatch(createRidersList(response.data.data.data))
+        });
+    }, [])
 
     // Riders and Drivers Count
     useEffect(() => {
@@ -195,7 +220,7 @@ const Dashboard: NextPage = () => {
             <div className="">
                 <div className="banner banner-color mt-0 row">
                     <div className="page-content col-xl-7 col-lg-6 col-md-12">
-                        <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{admin.lastname} {admin.firstname} </span></h3>
+                        <h3 className="mb-1">Welcome back! <span className="font-weight-bold text-primary">{admin?.lastname} {admin?.firstname} </span></h3>
                     </div>
                 </div>
             </div>

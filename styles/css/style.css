@@ -21727,6 +21727,11 @@ div.online-status .status.online {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s; }
 
+  .wideget-user .wideget-user-icons a{
+    display: flex !important;
+  }
+
+
 @media (max-width: 1279px) {
   .wideget-user-info .wideget-user-warap {
     margin-top: 2rem !important; } }
@@ -21836,14 +21841,27 @@ div.online-status .status.online {
 .wideget-user-desc .user-wrap {
   margin-top: 15px; }
 
+  .wideget-user .wideget-user-icons {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   margin: auto;
+  }
 .wideget-user .wideget-user-icons a {
-  display: inline-block;
+
+  /* display: inline-block; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   width: 2rem;
   height: 2rem;
-  text-align: center;
+  /* margin-right: 10px; */
+  /* text-align: center; */
   border-radius: 100px;
-  line-height: 2rem;
-  margin-top: 0.3rem; }
+  /* line-height: 2rem; */
+  /* margin-top: 0.3rem;  */
+}
   .wideget-user .wideget-user-icons a:hover {
     color: #fff; }
 
